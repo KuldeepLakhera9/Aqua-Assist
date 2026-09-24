@@ -55,6 +55,10 @@ const alertSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     source: {
       type: String,
       enum: ["IMD", "CWC", "NDRF", "community", "ai-prediction", "satellite"],

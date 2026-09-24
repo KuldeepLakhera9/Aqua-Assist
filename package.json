@@ -1,4 +1,9 @@
 {
+  "name": "aqua-assist-ndms",
+  "version": "1.0.0",
+  "scripts": {
+    "test:e2e": "node scripts/e2e-workflow-validation.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2"
   },

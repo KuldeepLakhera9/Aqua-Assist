@@ -45,6 +45,9 @@ const floodReportSchema = new mongoose.Schema(
         "window-level",
         "roof-level",
         "above-roof",
+        "rising",
+        "receding",
+        "stable",
       ],
       default: "ankle-deep",
     },
@@ -146,7 +149,14 @@ const floodReportSchema = new mongoose.Schema(
       weather: {
         status: {
           type: String,
-          enum: ["pending", "matched", "not-matched"],
+          enum: [
+            "pending",
+            "matched",
+            "not-matched",
+            "partially-matched",
+            "verified",
+            "error",
+          ],
           default: "pending",
         },
         snapshot: Object, // Store raw API response or key data
@@ -155,7 +165,14 @@ const floodReportSchema = new mongoose.Schema(
       news: {
         status: {
           type: String,
-          enum: ["pending", "matched", "not-matched"],
+          enum: [
+            "pending",
+            "matched",
+            "not-matched",
+            "partially-matched",
+            "verified",
+            "error",
+          ],
           default: "pending",
         },
         snapshot: Object, // Store raw API response or key data
@@ -165,7 +182,15 @@ const floodReportSchema = new mongoose.Schema(
         // Instagram (Optional, stubbed for future use)
         status: {
           type: String,
-          enum: ["pending", "matched", "not-matched", "coming-soon"],
+          enum: [
+            "pending",
+            "matched",
+            "not-matched",
+            "coming-soon",
+            "unavailable",
+            "error",
+            "verified",
+          ],
           default: "coming-soon",
         },
         snapshot: Object, // Store raw API response or key data

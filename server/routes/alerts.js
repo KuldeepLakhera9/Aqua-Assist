@@ -216,16 +216,42 @@ router.get("/:id", auth, async (req, res) => {
 router.post("/", auth, async (req, res) => {
   try {
     // Check if user has permission to create alerts
-    if (!["admin", "official"].includes(req.user.role)) {
+    if (!["admin", "official", "municipality"].includes(req.user.role)) {
       return res.status(403).json({
         success: false,
         message: "Insufficient permissions to create alerts",
       });
     }
 
+    const userId = req.user.userId || req.user._id || req.user.id;
     const alertData = {
       ...req.body,
-      createdBy: req.user.userId,
+      createdBy: userId,
+      issuedBy: req.body.issuedBy || userId,
+      source: req.body.source || "NDRF",
+      validFrom: req.body.validFrom || new Date(),
+      validUntil: req.body.validUntil || new Date(Date.now() + 24 * 3600 * 1000),
+      targetArea: {
+        type: "Polygon",
+        coordinates:
+          req.body.targetArea?.type === "Polygon" && Array.isArray(req.body.targetArea?.coordinates)
+            ? req.body.targetArea.coordinates
+            : [
+                [
+                  [77.10, 28.50],
+                  [77.30, 28.50],
+                  [77.30, 28.70],
+                  [77.10, 28.70],
+                  [77.10, 28.50],
+                ],
+              ],
+        districts:
+          req.body.targetArea?.districts ||
+          (req.body.targetArea?.district ? [req.body.targetArea.district] : ["New Delhi"]),
+        states:
+          req.body.targetArea?.states ||
+          (req.body.targetArea?.state ? [req.body.targetArea.state] : ["Delhi"]),
+      },
     };
 
     const alert = await Alert.create(alertData);
@@ -235,11 +261,11 @@ router.post("/", auth, async (req, res) => {
     invalidateAlertsCache();
 
     // Find users in the target area to notify
+    const targetState = alert.targetArea.states?.[0] || alert.targetArea.state;
+    const targetDistrict = alert.targetArea.districts?.[0] || alert.targetArea.district;
     const targetUsers = await User.find({
-      "location.state": alert.targetArea.state,
-      ...(alert.targetArea.district && {
-        "location.district": alert.targetArea.district,
-      }),
+      ...(targetState && { "location.state": targetState }),
+      ...(targetDistrict && { "location.district": targetDistrict }),
     });
 
     // Send notifications to affected users
