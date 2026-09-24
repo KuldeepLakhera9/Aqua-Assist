@@ -43,18 +43,21 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 export type SeverityLevel = "normal" | "advisory" | "high" | "critical";
 
 export interface SeverityBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  level: SeverityLevel;
+  level?: SeverityLevel;
+  severity?: SeverityLevel;
   label?: string;
   showIcon?: boolean;
 }
 
 export function SeverityBadge({
   level,
+  severity,
   label,
   showIcon = true,
   className,
   ...props
 }: SeverityBadgeProps) {
+  const actualLevel: SeverityLevel = level || severity || "normal";
   const configs: Record<
     SeverityLevel,
     {
@@ -95,7 +98,7 @@ export function SeverityBadge({
     },
   };
 
-  const config = configs[level] || configs.normal;
+  const config = configs[actualLevel] || configs.normal;
   const Icon = config.icon;
   const displayLabel = label || config.defaultLabel;
 
