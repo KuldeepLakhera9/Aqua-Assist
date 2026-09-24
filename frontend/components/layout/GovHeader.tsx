@@ -18,11 +18,13 @@ import {
   Radio,
   Sparkles,
   ExternalLink,
+  Compass,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useSocket } from "@/contexts/SocketContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ExecutiveTourModal } from "./ExecutiveTourModal";
 
 interface GovHeaderProps {
   portalName: string;
@@ -35,6 +37,7 @@ export function GovHeader({ portalName, portalRole = "citizen" }: GovHeaderProps
   const [notificationOpen, setNotificationOpen] = React.useState(false);
   const [language, setLanguage] = React.useState<"EN" | "HI" | "MR">("EN");
   const [simMenuOpen, setSimMenuOpen] = React.useState(false);
+  const [tourOpen, setTourOpen] = React.useState(false);
   const pathname = usePathname();
 
   const roleConfigs = {
@@ -162,6 +165,18 @@ export function GovHeader({ portalName, portalRole = "citizen" }: GovHeaderProps
                 </div>
               )}
             </div>
+
+            {/* Executive Tour / Presentation Mode */}
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => setTourOpen(true)}
+              className="h-8 text-xs font-mono font-semibold bg-slate-900 text-white hover:bg-slate-800 hidden sm:inline-flex items-center gap-1 shadow-xs"
+              title="Open Executive Demonstration & Disaster Lifecycle Tour"
+            >
+              <Compass className="h-3.5 w-3.5 text-emerald-400" />
+              <span>Executive Tour</span>
+            </Button>
 
             {/* Quick Role Switcher */}
             <div className="hidden lg:flex items-center gap-1 bg-slate-100 p-1 rounded-sm border border-slate-200 text-xs">
@@ -295,6 +310,9 @@ export function GovHeader({ portalName, portalRole = "citizen" }: GovHeaderProps
           </div>
         </div>
       </div>
+
+      {/* Executive Guided Presentation & Scenario Tour */}
+      <ExecutiveTourModal isOpen={tourOpen} onClose={() => setTourOpen(false)} />
     </header>
   );
 }
