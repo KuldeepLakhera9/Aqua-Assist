@@ -17,21 +17,14 @@ import {
   useTheme,
 } from "@mui/material";
 import {
-  CheckCircleOutlined as CheckIcon,
-  ErrorOutlined as ErrorIcon,
-  CloudOutlined as CloudIcon,
-  NewspaperOutlined as NewsIcon,
-  Instagram as InstagramIcon,
-  QuestionMark as UnknownIcon,
-  SvgIcon,
-} from "@mui/icons-material";
-
-// Custom Machine Learning icon
-const AIIcon = (props) => (
-  <SvgIcon {...props}>
-    <path d="M21,10.5h-1v-1c0-0.8-0.7-1.5-1.5-1.5h-1v-1c0-0.8-0.7-1.5-1.5-1.5h-6C9.2,5.5,8.5,6.2,8.5,7v1h-1 C6.7,8,6,8.7,6,9.5v1H5c-0.6,0-1,0.4-1,1v3c0,0.6,0.4,1,1,1h1v1c0,0.8,0.7,1.5,1.5,1.5h1v1c0,0.8,0.7,1.5,1.5,1.5h6 c0.8,0,1.5-0.7,1.5-1.5v-1h1c0.8,0,1.5-0.7,1.5-1.5v-1h1c0.6,0,1-0.4,1-1v-3C22,10.9,21.6,10.5,21,10.5z M15.5,14.5 c0,0.6-0.4,1-1,1h-3c-0.6,0-1-0.4-1-1v-3c0-0.6,0.4-1,1-1h3c0.6,0,1,0.4,1,1V14.5z" />
-  </SvgIcon>
-);
+  CheckCircle2 as CheckIcon,
+  AlertCircle as ErrorIcon,
+  Cloud as CloudIcon,
+  Newspaper as NewsIcon,
+  Camera as InstagramIcon,
+  HelpCircle as UnknownIcon,
+  Cpu as AIIcon,
+} from "lucide-react";
 
 const VerificationSummary = ({ verificationData }) => {
   const theme = useTheme();
@@ -79,13 +72,12 @@ const VerificationSummary = ({ verificationData }) => {
     switch (status) {
       case "verified":
       case "matched":
-        return <CheckIcon color="success" />;
+        return <CheckIcon className="w-3.5 h-3.5 text-emerald-600" />;
       case "not-matched":
-        return <ErrorIcon color="error" />;
       case "error":
-        return <ErrorIcon color="error" />;
+        return <ErrorIcon className="w-3.5 h-3.5 text-rose-600" />;
       default:
-        return <UnknownIcon />;
+        return <UnknownIcon className="w-3.5 h-3.5 text-slate-400" />;
     }
   };
 
@@ -102,9 +94,9 @@ const VerificationSummary = ({ verificationData }) => {
         >
           <Typography
             variant="h6"
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", fontWeight: 700 }}
           >
-            <AIIcon sx={{ mr: 1, color: theme.palette.primary.main }} />
+            <AIIcon className="w-5 h-5 mr-2 text-primary-600 dark:text-sky-400 inline-block shrink-0" />
             AI Verification Results
           </Typography>
           <Chip
@@ -134,7 +126,7 @@ const VerificationSummary = ({ verificationData }) => {
               mt: 1,
               height: 8,
               borderRadius: 1,
-              bgcolor: theme.palette.grey[200],
+              bgcolor: "divider",
               "& .MuiLinearProgress-bar": {
                 bgcolor:
                   confidencePercent >= 80
@@ -161,8 +153,8 @@ const VerificationSummary = ({ verificationData }) => {
               <Card variant="outlined" sx={{ height: "100%" }}>
                 <CardContent>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                    <CloudIcon sx={{ mr: 1, color: theme.palette.info.main }} />
-                    <Typography variant="body2">Weather Data</Typography>
+                    <CloudIcon className="w-4 h-4 mr-2 text-sky-500 inline-block shrink-0" />
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>Weather Data</Typography>
                   </Box>
                   <Chip
                     label={
@@ -185,8 +177,8 @@ const VerificationSummary = ({ verificationData }) => {
               <Card variant="outlined" sx={{ height: "100%" }}>
                 <CardContent>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                    <NewsIcon sx={{ mr: 1, color: theme.palette.info.main }} />
-                    <Typography variant="body2">News Articles</Typography>
+                    <NewsIcon className="w-4 h-4 mr-2 text-indigo-500 inline-block shrink-0" />
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>News Articles</Typography>
                   </Box>
                   <Chip
                     label={
@@ -209,10 +201,8 @@ const VerificationSummary = ({ verificationData }) => {
               <Card variant="outlined" sx={{ height: "100%" }}>
                 <CardContent>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                    <InstagramIcon
-                      sx={{ mr: 1, color: theme.palette.info.main }}
-                    />
-                    <Typography variant="body2">Social Media</Typography>
+                    <InstagramIcon className="w-4 h-4 mr-2 text-pink-500 inline-block shrink-0" />
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>Social Media</Typography>
                   </Box>
                   <Chip
                     label={

@@ -1,15 +1,4 @@
 import React from "react";
-import {
-  Box,
-  Heading,
-  Text,
-  Button,
-  VStack,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
 import { RefreshCw, AlertTriangle } from "lucide-react";
 
 class ErrorBoundary extends React.Component {
@@ -24,24 +13,19 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI
-    console.log("Error caught by boundary:", error);
     return {
       hasError: true,
-      errorId: Date.now(), // Simple error ID for tracking
+      errorId: Date.now(),
     };
   }
 
   componentDidCatch(error, errorInfo) {
-    // You can log the error to an error reporting service here
     console.error("ErrorBoundary caught an error:", error, errorInfo);
-
     this.setState({
       error: error,
       errorInfo: errorInfo,
     });
 
-    // Optional: Send error to monitoring service
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
     }
@@ -62,108 +46,82 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // Custom fallback UI
       if (this.props.fallback) {
         return this.props.fallback(this.state.error, this.handleRetry);
       }
 
-      // Default fallback UI
       return (
-        <Box
-          p={6}
-          maxW="lg"
-          mx="auto"
-          mt={8}
-          borderRadius="lg"
-          boxShadow="lg"
-          bg="white"
-          border="1px"
-          borderColor="gray.200"
-        >
-          <VStack spacing={4} align="stretch">
-            <Alert status="error" borderRadius="md">
-              <AlertIcon as={AlertTriangle} />
-              <Box>
-                <AlertTitle>Something went wrong!</AlertTitle>
-                <AlertDescription>
+        <div className="p-6 max-w-lg mx-auto mt-8 rounded-xl shadow-lg bg-app-card border border-app-card-border text-app-text transition-colors">
+          <div className="space-y-4">
+            <div className="p-4 rounded-lg bg-rose-50 border border-rose-300 dark:bg-rose-950/40 dark:border-rose-800 text-rose-800 dark:text-rose-200 flex items-start space-x-3">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0 text-rose-600 dark:text-rose-400 mt-0.5" />
+              <div>
+                <h4 className="font-semibold text-sm">Something went wrong!</h4>
+                <p className="text-xs mt-1 text-rose-700 dark:text-rose-300">
                   {this.props.message ||
                     "An unexpected error occurred in this component."}
-                </AlertDescription>
-              </Box>
-            </Alert>
+                </p>
+              </div>
+            </div>
 
-            <VStack spacing={3} align="stretch">
-              <Heading size="md" color="red.500">
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-rose-600 dark:text-rose-400">
                 Component Error
-              </Heading>
+              </h3>
 
-              <Text fontSize="sm" color="gray.600">
+              <p className="text-xs text-app-muted">
                 Error ID: {this.state.errorId}
-              </Text>
+              </p>
 
               {this.props.showDetails && this.state.error && (
-                <Box
-                  p={3}
-                  bg="gray.50"
-                  borderRadius="md"
-                  fontSize="xs"
-                  fontFamily="mono"
-                  overflow="auto"
-                  maxH="200px"
-                >
-                  <Text fontWeight="bold" mb={2}>
+                <div className="p-3 bg-app-surface border border-app-border rounded-lg text-xs font-mono overflow-auto max-h-48 text-app-text">
+                  <p className="font-bold mb-1 text-rose-600 dark:text-rose-400">
                     Error Details:
-                  </Text>
-                  <Text color="red.600">{this.state.error.toString()}</Text>
+                  </p>
+                  <p className="text-rose-700 dark:text-rose-300">{this.state.error.toString()}</p>
                   {this.state.errorInfo && (
                     <>
-                      <Text fontWeight="bold" mt={3} mb={2}>
+                      <p className="font-bold mt-3 mb-1 text-app-muted">
                         Component Stack:
-                      </Text>
-                      <Text color="gray.600" whiteSpace="pre-wrap">
+                      </p>
+                      <p className="text-app-muted whitespace-pre-wrap">
                         {this.state.errorInfo.componentStack}
-                      </Text>
+                      </p>
                     </>
                   )}
-                </Box>
+                </div>
               )}
 
-              <VStack spacing={2}>
-                <Button
-                  leftIcon={<RefreshCw size={16} />}
-                  colorScheme="blue"
+              <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                <button
                   onClick={this.handleRetry}
-                  size="sm"
+                  className="flex items-center justify-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium transition-colors"
                 >
+                  <RefreshCw className="w-4 h-4 mr-2" />
                   Try Again
-                </Button>
+                </button>
 
                 {this.props.showReportButton && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      // You could implement error reporting here
-                      console.log("Report error clicked");
-                    }}
+                  <button
+                    onClick={() => console.log("Report error clicked")}
+                    className="px-4 py-2 border border-app-border text-app-text hover:bg-app-hover rounded-lg text-sm font-medium transition-colors"
                   >
                     Report Issue
-                  </Button>
+                  </button>
                 )}
 
                 {this.props.onGoBack && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
+                  <button
                     onClick={this.props.onGoBack}
+                    className="px-4 py-2 text-app-muted hover:text-app-text rounded-lg text-sm font-medium transition-colors"
                   >
                     Go Back
-                  </Button>
+                  </button>
                 )}
-              </VStack>
-            </VStack>
-          </VStack>
-        </Box>
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
 

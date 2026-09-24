@@ -21,10 +21,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import {
-  Email as EmailIcon,
-  Sms as SmsIcon,
-  Notifications as NotificationsIcon,
-} from "@mui/icons-material";
+  Mail as EmailIcon,
+  MessageSquare as SmsIcon,
+  Bell as NotificationsIcon,
+} from "lucide-react";
 
 const NotificationTester = () => {
   const { user } = useAuth(); // Used for userId

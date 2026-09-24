@@ -7,14 +7,14 @@ const DashboardStats = ({ stats }) => {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="bg-white rounded-lg shadow-sm p-6 flex items-center space-x-4"
+          className="bg-app-card rounded-xl border border-app-card-border shadow-sm p-5 flex items-center space-x-4 transition-colors"
         >
-          <div className={`${stat.color} p-3 rounded-full`}>
-            <stat.icon className="h-6 w-6 text-white" />
+          <div className={`${stat.color} p-3 rounded-xl flex-shrink-0`}>
+            <stat.icon className="h-5 w-5 text-white" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-600">{stat.name}</p>
-            <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
+            <p className="text-xs font-medium text-app-muted">{stat.name}</p>
+            <p className="text-2xl font-bold text-app-text mt-0.5">{stat.value}</p>
           </div>
         </div>
       ))}

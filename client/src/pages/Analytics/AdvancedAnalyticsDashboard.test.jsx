@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import {
@@ -143,11 +143,11 @@ describe("AdvancedAnalyticsDashboard", () => {
 
     // Click on region select
     const regionSelect = screen.getByLabelText("Region");
-    userEvent.click(regionSelect);
+    fireEvent.mouseDown(regionSelect);
 
     // Select North District
-    const northDistrict = screen.getByText("North District");
-    userEvent.click(northDistrict);
+    const northDistrict = await screen.findByText("North District");
+    fireEvent.click(northDistrict);
 
     // Verify that analytics service was called with new region
     await waitFor(() => {

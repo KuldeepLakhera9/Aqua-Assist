@@ -8,8 +8,19 @@ import { ChevronDown, Globe, Check } from "lucide-react";
  */
 const LanguageSelector = ({ className = "", compact = false }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { currentLanguage, changeLanguage, availableLanguages, isLoading } =
-    useLanguage();
+  let langState;
+  try {
+    langState = useLanguage();
+  } catch {
+    langState = {
+      currentLanguage: "en",
+      changeLanguage: () => {},
+      availableLanguages: { en: { name: "English", nativeName: "English" } },
+      isLoading: false,
+    };
+  }
+  const { currentLanguage = "en", changeLanguage = () => {}, availableLanguages = {}, isLoading = false } =
+    langState || {};
 
   // Get the current language details
   const currentLanguageDetails = availableLanguages[currentLanguage];
@@ -32,19 +43,20 @@ const LanguageSelector = ({ className = "", compact = false }) => {
     <div className={`relative ${className}`}>
       <button
         type="button"
-        className={`flex items-center justify-between ${
+        className={`flex items-center justify-between transition-colors ${
           compact
-            ? "p-1.5 rounded-md text-gray-700"
-            : "px-3 py-2 rounded-md border border-gray-300 text-gray-700"
-        } bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            ? "p-1.5 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            : "px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-800"
+        } focus:outline-none focus:ring-2 focus:ring-sky-500 ${
           isLoading ? "opacity-50 cursor-not-allowed" : ""
         }`}
         onClick={toggleDropdown}
         disabled={isLoading}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
+        aria-label="Select language"
       >
-        <Globe className={`${compact ? "h-4 w-4" : "h-5 w-5"} mr-1`} />
+        <Globe className={`${compact ? "h-4 w-4" : "h-4 w-4"} mr-1 text-slate-500 dark:text-slate-400`} />
         {!compact && (
           <span className="mx-1 text-sm font-medium">
             {currentLanguageDetails?.nativeName || "Language"}
@@ -52,21 +64,21 @@ const LanguageSelector = ({ className = "", compact = false }) => {
         )}
         <ChevronDown
           className={`${
-            compact ? "h-3 w-3" : "h-4 w-4"
-          } ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            compact ? "h-3.5 w-3.5" : "h-4 w-4"
+          } ml-1 text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 z-50">
           <div className="py-1" role="listbox" aria-label="Select language">
             {Object.entries(availableLanguages).map(([code, language]) => (
               <button
                 key={code}
-                className={`flex items-center justify-between w-full text-left px-4 py-2 text-sm ${
+                className={`flex items-center justify-between w-full text-left px-3 py-2 text-sm rounded-lg transition-colors ${
                   currentLanguage === code
-                    ? "bg-blue-50 text-blue-700"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 font-medium"
+                    : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                 }`}
                 role="option"
                 aria-selected={currentLanguage === code}
@@ -74,9 +86,9 @@ const LanguageSelector = ({ className = "", compact = false }) => {
               >
                 <span>
                   {language.nativeName}
-                  <span className="ml-1 text-gray-400">({language.name})</span>
+                  <span className="ml-1 text-xs text-slate-400 dark:text-slate-500">({language.name})</span>
                 </span>
-                {currentLanguage === code && <Check className="h-4 w-4" />}
+                {currentLanguage === code && <Check className="h-4 w-4 text-sky-600 dark:text-sky-400" />}
               </button>
             ))}
           </div>

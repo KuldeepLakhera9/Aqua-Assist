@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardContent, Typography, Box, Divider, Link } from '@mui/material';
-import CloudIcon from '@mui/icons-material/Cloud';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import { Cloud as CloudIcon, Newspaper as NewspaperIcon, Camera as InstagramIcon } from 'lucide-react';
 
 const VerificationPanel = ({ verificationData }) => {
   if (!verificationData) {
@@ -31,7 +29,7 @@ const VerificationPanel = ({ verificationData }) => {
 
         {/* Weather Verification */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-          <CloudIcon color={weather?.status === 'verified' ? 'success' : weather?.status === 'not-matched' ? 'error' : 'action'} sx={{ mr: 1 }} />
+          <CloudIcon className={`w-4 h-4 mr-2 ${weather?.status === 'verified' ? 'text-emerald-500' : weather?.status === 'not-matched' ? 'text-rose-500' : 'text-app-muted'}`} />
           <Typography variant="subtitle1" component="span">Weather Verification:</Typography>
           <Typography variant="body2" component="span" ml={1} color={weather?.status === 'verified' ? 'success.main' : weather?.status === 'not-matched' ? 'error.main' : 'text.secondary'}>
             {weather?.status ? `${weather.status.replace(/-/g, ' ').toUpperCase()}` : 'N/A'}
@@ -43,7 +41,7 @@ const VerificationPanel = ({ verificationData }) => {
 
         {/* News Verification */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-          <NewspaperIcon color={news?.status === 'verified' ? 'success' : news?.status === 'not-matched' ? 'error' : 'action'} sx={{ mr: 1 }} />
+          <NewspaperIcon className={`w-4 h-4 mr-2 ${news?.status === 'verified' ? 'text-emerald-500' : news?.status === 'not-matched' ? 'text-rose-500' : 'text-app-muted'}`} />
           <Typography variant="subtitle1" component="span">News Verification:</Typography>
           <Typography variant="body2" component="span" ml={1} color={news?.status === 'verified' ? 'success.main' : news?.status === 'not-matched' ? 'error.main' : 'text.secondary'}>
             {news?.status ? `${news.status.replace(/-/g, ' ').toUpperCase()}` : 'N/A'}
@@ -68,7 +66,7 @@ const VerificationPanel = ({ verificationData }) => {
 
         {/* Social Media Verification */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-          <InstagramIcon color={social?.status === 'verified' ? 'success' : social?.status === 'not-matched' ? 'error' : 'action'} sx={{ mr: 1 }} />
+          <InstagramIcon className={`w-4 h-4 mr-2 ${social?.status === 'verified' ? 'text-emerald-500' : social?.status === 'not-matched' ? 'text-rose-500' : 'text-app-muted'}`} />
           <Typography variant="subtitle1" component="span">Social Verification:</Typography>
           <Typography variant="body2" component="span" ml={1} color={social?.status === 'verified' ? 'success.main' : social?.status === 'not-matched' ? 'error.main' : 'text.secondary'}>
             {social?.status ? `${social.status.replace(/-/g, ' ').toUpperCase()}` : 'COMING SOON'}

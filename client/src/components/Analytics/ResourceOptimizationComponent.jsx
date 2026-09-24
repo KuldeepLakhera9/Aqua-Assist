@@ -42,10 +42,12 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import WarningIcon from "@mui/icons-material/Warning";
-import DownloadIcon from "@mui/icons-material/Download";
-import ShareIcon from "@mui/icons-material/Share";
-import PrintIcon from "@mui/icons-material/Print";
+import {
+  AlertTriangle as WarningIcon,
+  Download as DownloadIcon,
+  Share2 as ShareIcon,
+  Printer as PrintIcon,
+} from "lucide-react";
 import { analyticsService } from "../../services/analyticsService";
 
 const ResourceOptimizationComponent = ({ region }) => {

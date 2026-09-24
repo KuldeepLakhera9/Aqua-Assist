@@ -18,6 +18,7 @@ import {
 import toast from "react-hot-toast";
 import axios from "axios";
 import AppLogo from "../../components/Branding/AppLogo";
+import ThemeToggle from "../../components/Common/ThemeToggle";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -175,7 +176,11 @@ const Register = () => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-slate-950">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-slate-950 transition-colors">
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle />
+      </div>
+
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" />
       <div
         className="absolute inset-0 -z-0 opacity-30"
@@ -195,32 +200,32 @@ const Register = () => {
         <div className="bg-white/90 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-xl border border-white/40 dark:border-slate-800 p-8">
           <div className="flex flex-col items-center mb-6">
             <AppLogo size={56} />
-            <h1 className="mt-4 text-2xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-slate-100 dark:to-slate-400">
+            <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
               Create your account
             </h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
               Join Aqua Assists and start contributing
             </p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Already registered?{" "}
               <Link
                 to="/login"
-                className="font-medium text-sky-600 hover:text-sky-500"
+                className="font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
               >
                 Sign in
               </Link>
             </p>
           </div>
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Personal Information */}
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
               >
                 Full Name
               </label>
-              <div className="mt-1 relative">
+              <div className="relative">
                 <input
                   {...register("name", {
                     required: "Name is required",
@@ -230,13 +235,13 @@ const Register = () => {
                     },
                   })}
                   type="text"
-                  className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="appearance-none block w-full px-3.5 py-2.5 pl-10 bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
                   placeholder="Enter your full name"
                 />
-                <User className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                <User className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
               </div>
               {errors.name && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                   {errors.name.message}
                 </p>
               )}
@@ -245,11 +250,11 @@ const Register = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
               >
                 Email Address
               </label>
-              <div className="mt-1 relative">
+              <div className="relative">
                 <input
                   {...register("email", {
                     required: "Email is required",
@@ -259,13 +264,13 @@ const Register = () => {
                     },
                   })}
                   type="email"
-                  className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="appearance-none block w-full px-3.5 py-2.5 pl-10 bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
                   placeholder="Enter your email"
                 />
-                <Mail className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
               </div>
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                   {errors.email.message}
                 </p>
               )}
@@ -275,12 +280,12 @@ const Register = () => {
             <div>
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
               >
                 Phone Number
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute left-3 top-2.5 h-4 w-4 text-gray-400">
+              <div className="relative">
+                <div className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500 z-10">
                   <PhoneIcon className="h-4 w-4" />
                 </div>
                 <Controller
@@ -296,13 +301,13 @@ const Register = () => {
                       {...field}
                       defaultCountry="IN"
                       placeholder="Enter phone number"
-                      className="pl-10 block w-full border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                      className="pl-10 block w-full bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 focus-within:ring-2 focus-within:ring-primary-500"
                     />
                   )}
                 />
               </div>
               {errors.phone && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                   {errors.phone.message}
                 </p>
               )}
@@ -311,11 +316,11 @@ const Register = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
               >
                 Password
               </label>
-              <div className="mt-1 relative">
+              <div className="relative">
                 <input
                   {...register("password", {
                     required: "Password is required",
@@ -330,36 +335,36 @@ const Register = () => {
                     },
                   })}
                   type={showPassword ? "text" : "password"}
-                  className="appearance-none block w-full px-3 py-2 pl-10 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="appearance-none block w-full px-3.5 py-2.5 pl-10 pr-10 bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
                   placeholder="Create a password"
                 />
-                <Lock className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
                 <button
                   type="button"
-                  className="absolute right-3 top-2.5 h-4 w-4 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-3 h-4 w-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <EyeOff /> : <Eye />}
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                   {errors.password.message}
                 </p>
               )}
             </div>
 
             {/* Location Information */}
-            <div className="border-t border-gray-200 pt-6">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            <div className="border-t border-slate-200 dark:border-slate-800 pt-6">
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-4">
                 Location Information
               </h3>
 
               {currentLocation && (
-                <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-md">
+                <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 rounded-xl">
                   <div className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                    <span className="text-sm text-green-700">
+                    <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mr-2" />
+                    <span className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
                       Location detected automatically
                     </span>
                   </div>
@@ -367,11 +372,11 @@ const Register = () => {
               )}
 
               {locationLoading && (
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                <div className="mb-4 p-3 bg-sky-50 dark:bg-sky-950/40 border border-sky-300 dark:border-sky-800 rounded-xl">
                   <div className="flex items-center">
-                    <Loader2 className="w-4 h-4 text-blue-500 mr-2 animate-spin" />
-                    <span className="text-sm text-blue-700">
-                      Getting your location...
+                    <Loader2 className="w-4 h-4 text-sky-600 dark:text-sky-400 mr-2 animate-spin" />
+                    <span className="text-sm font-medium text-sky-800 dark:text-sky-200">
+                      Acquiring GPS coordinates...
                     </span>
                   </div>
                 </div>
@@ -381,7 +386,7 @@ const Register = () => {
                 type="button"
                 onClick={getCurrentLocation}
                 disabled={locationLoading}
-                className="mb-4 inline-flex items-center px-3 py-2 border border-sky-200 text-sm font-medium rounded-md text-sky-700 bg-sky-50 hover:bg-sky-100 disabled:opacity-50"
+                className="mb-4 inline-flex items-center px-3.5 py-2 border border-sky-300 dark:border-sky-800 text-sm font-medium rounded-xl text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 disabled:opacity-50 transition-colors"
               >
                 {locationLoading ? (
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -395,20 +400,21 @@ const Register = () => {
                 <div>
                   <label
                     htmlFor="district"
-                    className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                    className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                   >
                     District *
                   </label>
                   <input
+                    id="district"
                     {...register("location.district", {
                       required: "District is required",
                     })}
                     type="text"
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                    className="block w-full px-3.5 py-2.5 bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
                     placeholder="Your district"
                   />
                   {errors.location?.district && (
-                    <p className="mt-1 text-sm text-red-600">
+                    <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                       {errors.location.district.message}
                     </p>
                   )}
@@ -417,15 +423,16 @@ const Register = () => {
                 <div>
                   <label
                     htmlFor="state"
-                    className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                    className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                   >
                     State *
                   </label>
                   <select
+                    id="state"
                     {...register("location.state", {
                       required: "State is required",
                     })}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                    className="block w-full px-3.5 py-2.5 bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
                   >
                     <option value="">Select State</option>
                     {indianStates.map((state) => (
@@ -435,7 +442,7 @@ const Register = () => {
                     ))}
                   </select>
                   {errors.location?.state && (
-                    <p className="mt-1 text-sm text-red-600">
+                    <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                       {errors.location.state.message}
                     </p>
                   )}
@@ -445,22 +452,22 @@ const Register = () => {
               <div className="mt-4">
                 <label
                   htmlFor="address"
-                  className="block text-sm font-medium text-gray-700 dark:text-slate-300"
+                  className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                 >
-                  Address/Landmark (Optional)
+                  Address / Landmark (Optional)
                 </label>
                 <textarea
                   {...register("location.address")}
                   rows={2}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full px-3.5 py-2.5 bg-white/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
                   placeholder="Your address or nearby landmark"
                 />
               </div>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-md p-3">
-                <p className="text-sm text-red-600">{error}</p>
+              <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 rounded-xl p-3">
+                <p className="text-xs font-medium text-rose-700 dark:text-rose-300">{error}</p>
               </div>
             )}
 
@@ -468,7 +475,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex justify-center py-2.5 px-4 rounded-xl shadow-sm text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isLoading ? (
                   <>
@@ -485,10 +492,10 @@ const Register = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-slate-200 dark:border-slate-800" />
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
+              <div className="relative flex justify-center text-xs">
+                <span className="px-3 bg-white/90 dark:bg-slate-900/90 text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
                   Emergency Access
                 </span>
               </div>
@@ -497,16 +504,16 @@ const Register = () => {
             <div className="mt-6">
               <Link
                 to="/emergency"
-                className="w-full flex justify-center py-2 px-4 border border-red-300 rounded-md shadow-sm text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                className="w-full flex items-center justify-center py-2.5 px-4 border border-rose-300 dark:border-rose-800 rounded-xl shadow-sm text-sm font-semibold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-colors"
               >
                 <AlertTriangle className="w-4 h-4 mr-2" />
-                Need Emergency Help? Click Here
+                Need Emergency Assistance? Instant SOS
               </Link>
             </div>
           </div>
         </div>
-        <p className="mt-8 text-center text-xs text-slate-300 dark:text-slate-600">
-          &copy; {new Date().getFullYear()} Aqua Assists
+        <p className="mt-8 text-center text-xs text-slate-400 dark:text-slate-600">
+          &copy; {new Date().getFullYear()} Aqua Assists NDMS
         </p>
       </div>
     </div>

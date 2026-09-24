@@ -15,6 +15,12 @@ module.exports = {
           accent: "rgb(var(--app-accent) / <alpha-value>)",
           "accent-foreground":
             "rgb(var(--app-accent-foreground) / <alpha-value>)",
+          card: "rgb(var(--app-card) / <alpha-value>)",
+          "card-border": "rgb(var(--app-card-border) / <alpha-value>)",
+          input: "rgb(var(--app-input) / <alpha-value>)",
+          "input-border": "rgb(var(--app-input-border) / <alpha-value>)",
+          hover: "rgb(var(--app-hover) / <alpha-value>)",
+          primary: "rgb(var(--app-primary) / <alpha-value>)",
         },
         primary: {
           50: "#eff6ff",

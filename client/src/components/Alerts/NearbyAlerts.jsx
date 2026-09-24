@@ -11,8 +11,7 @@ import {
   ListItem,
   Chip,
 } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import { MapPin as LocationOnIcon, BellRing as NotificationsActiveIcon } from "lucide-react";
 import { useGeoAlerts } from "../../hooks/useGeoAlerts";
 
 /**

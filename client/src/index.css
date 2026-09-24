@@ -15,6 +15,12 @@
   --app-muted: 100 116 139; /* slate-500 */
   --app-accent: 37 99 235; /* primary-600 */
   --app-accent-foreground: 255 255 255; /* white */
+  --app-card: 255 255 255; /* white */
+  --app-card-border: 226 232 240; /* slate-200 */
+  --app-input: 255 255 255; /* white */
+  --app-input-border: 203 213 225; /* slate-300 */
+  --app-hover: 241 245 249; /* slate-100 */
+  --app-primary: 30 58 138; /* navy / blue-900 */
 }
 
 .dark {
@@ -25,6 +31,12 @@
   --app-muted: 148 163 184; /* slate-400 */
   --app-accent: 56 189 248; /* sky-400 */
   --app-accent-foreground: 15 23 42; /* slate-900 */
+  --app-card: 30 41 59; /* slate-800 */
+  --app-card-border: 51 65 85; /* slate-700 */
+  --app-input: 15 23 42; /* slate-900 */
+  --app-input-border: 71 85 105; /* slate-600 */
+  --app-hover: 51 65 85; /* slate-700 */
+  --app-primary: 37 99 235; /* blue-600 */
 }
 
 @layer base {

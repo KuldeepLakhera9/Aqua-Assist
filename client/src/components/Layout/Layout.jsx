@@ -15,6 +15,9 @@ import {
   ShieldAlert,
   Box,
   Droplet,
+  Bell,
+  Building2,
+  LifeBuoy,
 } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 import ThemeToggle from "../Common/ThemeToggle";
@@ -34,73 +37,14 @@ const Layout = () => {
     { name: "Water Issues", href: "/water-issues", icon: Droplet },
     { name: "Alerts", href: "/alerts", icon: AlertTriangle },
     { name: "Emergency", href: "/emergency", icon: Phone },
-    {
-      name: "Notifications",
-      href: "/notifications",
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
-          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
-        </svg>
-      ),
-    },
+    { name: "Notifications", href: "/notifications", icon: Bell },
     { name: "Profile", href: "/profile", icon: User },
   ];
 
   const adminNavigation = [
     { name: "Admin Dashboard", href: "/admin/dashboard", icon: Home },
-    {
-      name: "Municipality",
-      href: "/admin/municipality",
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-      ),
-    },
-    {
-      name: "Rescuers",
-      href: "/admin/rescuers",
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      ),
-    },
+    { name: "Municipality", href: "/admin/municipality", icon: Building2 },
+    { name: "Rescuers", href: "/admin/rescuers", icon: LifeBuoy },
     { name: "User Management", href: "/admin/users", icon: Users },
     { name: "Flood Reports", href: "/admin/reports", icon: ShieldAlert },
     { name: "Water Issues", href: "/admin/water-issues", icon: Droplet },
@@ -123,24 +67,7 @@ const Layout = () => {
     {
       name: "Manage Rescuers",
       href: "/municipality/rescuers",
-      icon: () => (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      ),
+      icon: LifeBuoy,
     },
     { name: "Manage Resources", href: "/municipality/resources", icon: Box },
     { name: "Analytics", href: "/municipality/analytics", icon: BarChart3 },
@@ -171,7 +98,7 @@ const Layout = () => {
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -184,16 +111,16 @@ const Layout = () => {
       >
         <div className="flex items-center justify-between h-16 px-4 border-b border-app-border">
           <Link to="/dashboard" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center shadow-sm">
               <AlertTriangle className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-app-text">
+            <span className="text-xl font-bold text-app-text tracking-tight">
               Aqua Assists
             </span>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 rounded-md hover:bg-app-surface/70"
+            className="lg:hidden p-1.5 rounded-lg text-app-muted hover:text-app-text hover:bg-app-hover transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -202,16 +129,16 @@ const Layout = () => {
         {/* User info */}
         <div className="p-4 border-b border-app-border">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-              <User className="w-5 h-5 text-primary-600" />
+            <div className="w-10 h-10 bg-primary-50 dark:bg-primary-950/50 border border-primary-200 dark:border-primary-800 rounded-full flex items-center justify-center">
+              <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
-              <p className="text-sm font-medium text-app-text">{user?.name}</p>
+              <p className="text-sm font-semibold text-app-text">{user?.name || "Official User"}</p>
               <p className="text-xs text-app-muted capitalize">
                 {user?.role || "citizen"}
               </p>
               <div className="flex items-center mt-1">
-                <div className="w-2 h-2 bg-success-500 rounded-full mr-1"></div>
+                <div className="w-2 h-2 bg-emerald-500 rounded-full mr-1.5"></div>
                 <span className="text-xs text-app-muted">
                   Trust: {user?.trustScore || 100}
                 </span>
@@ -221,7 +148,7 @@ const Layout = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="mt-4 px-2">
+        <nav className="mt-4 px-2 space-y-1">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
@@ -229,13 +156,13 @@ const Layout = () => {
                 key={item.name}
                 to={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center px-3 py-2 mb-1 text-sm font-medium rounded-lg transition-colors ${
+                className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                   isActive
-                    ? "bg-primary-100/60 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border-r-2 border-primary-700 dark:border-primary-400"
-                    : "text-app-muted hover:bg-app-surface/70 hover:text-app-text"
+                    ? "bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-sky-300 font-semibold border-r-2 border-primary-600 dark:border-primary-400"
+                    : "text-app-muted hover:bg-app-hover hover:text-app-text"
                 }`}
               >
-                <item.icon className="w-5 h-5 mr-3" />
+                <item.icon className="w-5 h-5 mr-3 shrink-0" />
                 {item.name}
               </Link>
             );
@@ -246,9 +173,9 @@ const Layout = () => {
         <div className="absolute bottom-4 left-0 right-0 px-2">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center px-3 py-2 text-sm font-medium text-app-muted rounded-lg hover:bg-app-surface/70 hover:text-app-text transition-colors"
+            className="w-full flex items-center px-3 py-2 text-sm font-medium text-app-muted rounded-lg hover:bg-app-hover hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
           >
-            <LogOut className="w-5 h-5 mr-3" />
+            <LogOut className="w-5 h-5 mr-3 shrink-0" />
             Logout
           </button>
         </div>
@@ -262,60 +189,46 @@ const Layout = () => {
             <div className="flex items-center">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 rounded-md hover:bg-app-surface/70"
+                className="lg:hidden p-2 rounded-lg text-app-muted hover:text-app-text hover:bg-app-hover transition-colors"
               >
                 <Menu className="w-5 h-5" />
               </button>
 
               <div className="ml-4 lg:ml-0">
-                <h1 className="text-xl font-semibold text-app-text">
+                <h1 className="text-xl font-bold text-app-text">
                   {navigation.find((item) => item.href === location.pathname)
                     ?.name || "Dashboard"}
                 </h1>
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <ThemeToggle />
               <LanguageSelector compact />
 
-              <div className="flex space-x-2">
+              <div className="flex items-center space-x-2">
                 <Link
                   to="/emergency"
-                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-danger-600 hover:bg-danger-700"
+                  className="inline-flex items-center px-3 py-2 border border-transparent text-xs font-semibold rounded-lg text-white bg-rose-600 hover:bg-rose-700 shadow-sm transition-colors"
                 >
-                  <Phone className="w-4 h-4 mr-1" />
+                  <Phone className="w-3.5 h-3.5 mr-1" />
                   Emergency
                 </Link>
                 <Link
                   to="/emergency-services"
-                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-app-text bg-app-surface hover:bg-app-surface/70"
+                  className="inline-flex items-center px-3 py-2 border border-app-border text-xs font-semibold rounded-lg text-app-text bg-app-card hover:bg-app-hover shadow-sm transition-colors"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mr-1"
-                  >
-                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
-                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
-                  </svg>
+                  <LifeBuoy className="w-3.5 h-3.5 mr-1 text-app-muted" />
                   Services
                 </Link>
               </div>
 
               <Link
                 to="/profile"
-                className="flex items-center space-x-2 p-2 rounded-md hover:bg-app-surface/70"
+                className="flex items-center p-1.5 rounded-lg hover:bg-app-hover transition-colors"
               >
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-primary-600" />
+                <div className="w-8 h-8 bg-primary-50 dark:bg-primary-950/50 border border-primary-200 dark:border-primary-800 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                 </div>
               </Link>
             </div>

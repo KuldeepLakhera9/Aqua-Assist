@@ -1,33 +1,28 @@
 import React from "react";
-import {
-  Box,
-  Spinner,
-  Text,
-  VStack,
-  Skeleton,
-  SkeletonText,
-} from "@chakra-ui/react";
 import { Loader2 } from "lucide-react";
 
 // Basic loading spinner
 export const LoadingSpinner = ({
   size = "md",
-  color = "blue.500",
-  thickness = "4px",
   message = "Loading...",
   showMessage = true,
-}) => (
-  <VStack spacing={3} align="center" justify="center" py={8}>
-    <Spinner size={size} color={color} thickness={thickness} />
-    {showMessage && (
-      <Text fontSize="sm" color="gray.600">
-        {message}
-      </Text>
-    )}
-  </VStack>
-);
+}) => {
+  const sizeMap = {
+    sm: "w-4 h-4",
+    md: "w-8 h-8",
+    lg: "w-12 h-12",
+  };
+  const sizeCls = sizeMap[size] || sizeMap.md;
 
-// Full page loading overlay
+  return (
+    <div className="flex flex-col items-center justify-center py-8 space-y-3 text-app-muted">
+      <Loader2 className={`${sizeCls} animate-spin text-primary-600 dark:text-sky-400`} />
+      {showMessage && <p className="text-sm font-medium">{message}</p>}
+    </div>
+  );
+};
+
+// Full page / container loading overlay
 export const LoadingOverlay = ({
   isVisible,
   message = "Loading...",
@@ -37,28 +32,19 @@ export const LoadingOverlay = ({
   if (!isVisible) return children;
 
   return (
-    <Box position="relative">
+    <div className="relative">
       {children}
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bg={backdrop ? "whiteAlpha.800" : "transparent"}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        zIndex={1000}
+      <div
+        className={`absolute inset-0 z-50 flex items-center justify-center ${
+          backdrop ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs" : "bg-transparent"
+        }`}
       >
-        <VStack spacing={3}>
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-          <Text fontSize="sm" color="gray.600">
-            {message}
-          </Text>
-        </VStack>
-      </Box>
-    </Box>
+        <div className="flex flex-col items-center space-y-2 text-app-muted">
+          <Loader2 className="w-8 h-8 animate-spin text-primary-600 dark:text-sky-400" />
+          <p className="text-sm font-medium text-app-text">{message}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -66,114 +52,84 @@ export const LoadingOverlay = ({
 export const CardSkeleton = ({
   lines = 3,
   showAvatar = false,
-  height = "200px",
+  height = "auto",
 }) => (
-  <Box p={4} borderWidth="1px" borderRadius="lg" bg="white" height={height}>
-    <VStack align="stretch" spacing={3}>
-      {showAvatar && (
-        <Box display="flex" alignItems="center">
-          <Skeleton height="40px" width="40px" borderRadius="full" mr={3} />
-          <SkeletonText noOfLines={1} width="150px" />
-        </Box>
-      )}
-      <SkeletonText noOfLines={lines} spacing={2} />
-    </VStack>
-  </Box>
+  <div
+    style={{ height }}
+    className="p-4 rounded-xl border border-app-card-border bg-app-card shadow-sm space-y-3 animate-pulse"
+  >
+    {showAvatar && (
+      <div className="flex items-center space-x-3">
+        <div className="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700" />
+        <div className="h-4 w-36 rounded bg-slate-200 dark:bg-slate-700" />
+      </div>
+    )}
+    <div className="space-y-2 pt-1">
+      {Array.from({ length: lines }, (_, i) => (
+        <div
+          key={i}
+          className={`h-3.5 rounded bg-slate-200 dark:bg-slate-700 ${
+            i === lines - 1 ? "w-3/5" : "w-full"
+          }`}
+        />
+      ))}
+    </div>
+  </div>
 );
 
 // List loading skeleton
 export const ListSkeleton = ({
   items = 3,
   showAvatar = true,
-  itemHeight = "60px",
 }) => (
-  <VStack spacing={2} align="stretch">
+  <div className="space-y-2.5">
     {Array.from({ length: items }, (_, index) => (
-      <Box
+      <div
         key={index}
-        p={3}
-        borderWidth="1px"
-        borderRadius="md"
-        bg="white"
-        height={itemHeight}
-        display="flex"
-        alignItems="center"
+        className="p-3.5 rounded-lg border border-app-border bg-app-card flex items-center space-x-3 animate-pulse"
       >
         {showAvatar && (
-          <Skeleton height="32px" width="32px" borderRadius="full" mr={3} />
+          <div className="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
         )}
-        <VStack flex={1} align="stretch" spacing={1}>
-          <Skeleton height="16px" width="80%" />
-          <Skeleton height="12px" width="60%" />
-        </VStack>
-      </Box>
+        <div className="flex-1 space-y-1.5">
+          <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-slate-700" />
+          <div className="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700" />
+        </div>
+      </div>
     ))}
-  </VStack>
+  </div>
 );
 
 // Map loading placeholder
 export const MapSkeleton = ({ height = "400px" }) => (
-  <Box
-    height={height}
-    bg="gray.100"
-    borderRadius="md"
-    display="flex"
-    alignItems="center"
-    justifyContent="center"
-    position="relative"
-    overflow="hidden"
+  <div
+    style={{ height }}
+    className="w-full bg-app-surface border border-app-border rounded-xl flex flex-col items-center justify-center relative overflow-hidden"
   >
-    {/* Animated background */}
-    <Box
-      position="absolute"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      bg="linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)"
-      animation="shimmer 1.5s infinite"
-      sx={{
-        "@keyframes shimmer": {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(100%)" },
-        },
-      }}
-    />
-    <VStack spacing={3} color="gray.500">
-      <Loader2 className="w-8 h-8 animate-spin" />
-      <Text fontSize="sm">Loading map data...</Text>
-    </VStack>
-  </Box>
+    <div className="flex flex-col items-center space-y-2 text-app-muted z-10">
+      <Loader2 className="w-8 h-8 animate-spin text-primary-600 dark:text-sky-400" />
+      <p className="text-sm font-medium">Synchronizing GIS Map Telemetry...</p>
+    </div>
+  </div>
 );
 
 // Chart/Graph loading placeholder
 export const ChartSkeleton = ({ height = "300px" }) => (
-  <Box
-    height={height}
-    p={4}
-    borderRadius="md"
-    bg="white"
-    borderWidth="1px"
-    display="flex"
-    flexDirection="column"
+  <div
+    style={{ height }}
+    className="p-4 rounded-xl border border-app-card-border bg-app-card flex flex-col justify-between animate-pulse"
   >
-    <Skeleton height="20px" width="200px" mb={4} />
-    <Box
-      flex={1}
-      display="flex"
-      alignItems="end"
-      justifyContent="space-between"
-    >
+    <div className="h-4 w-40 rounded bg-slate-200 dark:bg-slate-700 mb-4" />
+    <div className="flex-1 flex items-end justify-between space-x-2 pt-4">
       {Array.from({ length: 7 }, (_, index) => (
-        <Skeleton
+        <div
           key={index}
-          width="30px"
-          height={`${Math.random() * 80 + 20}%`}
-          borderRadius="sm"
+          className="w-8 rounded-t bg-slate-200 dark:bg-slate-700"
+          style={{ height: `${(index * 13 + 30) % 80 + 20}%` }}
         />
       ))}
-    </Box>
-  </Box>
+    </div>
+  </div>
 );
 
 // Button loading state
@@ -181,12 +137,14 @@ export const LoadingButton = ({
   isLoading,
   children,
   loadingText = "Loading...",
+  className = "",
+  disabled = false,
   ...props
 }) => (
   <button
     {...props}
-    disabled={isLoading || props.disabled}
-    className={`${props.className} ${
+    disabled={isLoading || disabled}
+    className={`${className} ${
       isLoading ? "opacity-75 cursor-not-allowed" : ""
     }`}
   >
@@ -203,43 +161,36 @@ export const LoadingButton = ({
 
 // Table loading skeleton
 export const TableSkeleton = ({ rows = 5, columns = 4, showHeader = true }) => (
-  <Box borderWidth="1px" borderRadius="lg" bg="white" overflow="hidden">
+  <div className="border border-app-card-border rounded-xl bg-app-card overflow-hidden animate-pulse">
     {showHeader && (
-      <Box p={4} borderBottomWidth="1px" bg="gray.50">
-        <Box display="flex" justifyContent="space-between">
-          {Array.from({ length: columns }, (_, index) => (
-            <Skeleton key={index} height="16px" width="80px" />
-          ))}
-        </Box>
-      </Box>
+      <div className="p-4 border-b border-app-border bg-app-surface flex justify-between">
+        {Array.from({ length: columns }, (_, index) => (
+          <div key={index} className="h-4 w-20 rounded bg-slate-200 dark:bg-slate-700" />
+        ))}
+      </div>
     )}
-    <VStack spacing={0} align="stretch">
+    <div className="divide-y divide-app-border">
       {Array.from({ length: rows }, (_, rowIndex) => (
-        <Box
-          key={rowIndex}
-          p={4}
-          borderBottomWidth={rowIndex < rows - 1 ? "1px" : "0"}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <div key={rowIndex} className="p-4 flex justify-between items-center">
           {Array.from({ length: columns }, (_, colIndex) => (
-            <Skeleton
+            <div
               key={colIndex}
-              height="16px"
-              width={colIndex === 0 ? "120px" : "80px"}
+              className={`h-3.5 rounded bg-slate-200 dark:bg-slate-700 ${
+                colIndex === 0 ? "w-28" : "w-16"
+              }`}
             />
           ))}
-        </Box>
+        </div>
       ))}
-    </VStack>
-  </Box>
+    </div>
+  </div>
 );
 
 // Inline loading state for small components
 export const InlineLoader = ({ size = 16, className = "" }) => (
   <Loader2
-    className={`w-${size / 4} h-${size / 4} animate-spin ${className}`}
+    style={{ width: size, height: size }}
+    className={`animate-spin text-primary-600 dark:text-sky-400 ${className}`}
   />
 );
 

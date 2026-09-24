@@ -59,7 +59,7 @@ describe("Register form validation", () => {
     fireEvent.input(screen.getByPlaceholderText(/your district/i), {
       target: { value: "Some District" },
     });
-    fireEvent.change(screen.getByDisplayValue(""), {
+    fireEvent.change(screen.getByLabelText(/state/i), {
       target: { value: "Delhi" },
     }); // state select
     fireEvent.click(screen.getByRole("button", { name: /create account/i }));
@@ -82,7 +82,7 @@ describe("Register form validation", () => {
     fireEvent.input(screen.getByPlaceholderText(/your district/i), {
       target: { value: "District" },
     });
-    fireEvent.change(screen.getByDisplayValue(""), {
+    fireEvent.change(screen.getByLabelText(/state/i), {
       target: { value: "Delhi" },
     });
     fireEvent.click(screen.getByRole("button", { name: /create account/i }));

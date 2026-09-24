@@ -29,16 +29,16 @@ import {
   Tabs,
 } from "@mui/material";
 import {
-  NotificationsActive as NotificationsActiveIcon,
-  LocationOn as LocationOnIcon,
-  FilterList as FilterListIcon,
+  BellRing as NotificationsActiveIcon,
+  MapPin as LocationOnIcon,
+  Filter as FilterListIcon,
   Map as MapIcon,
-  Warning as WarningIcon,
-  Close as CloseIcon,
+  AlertTriangle as WarningIcon,
+  X as CloseIcon,
   Info as InfoIcon,
   Navigation as NavigationIcon,
-  FormatListBulleted as ListIcon,
-} from "@mui/icons-material";
+  List as ListIcon,
+} from "lucide-react";
 
 import { useGeoAlerts } from "../../hooks/useGeoAlerts";
 import AlertsMap from "../../components/Maps/AlertsMap";

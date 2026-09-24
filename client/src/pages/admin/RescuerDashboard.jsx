@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Phone, Users, MapPin, MessageSquare, Truck, CheckCircle, AlertTriangle } from 'lucide-react';
 
-// Components to be created later
 import EmergencyCallsList from '../../components/Admin/EmergencyCallsList';
 import RescueTeamList from '../../components/Admin/RescueTeamList';
 import ResourceMap from '../../components/Admin/ResourceMap';
@@ -12,7 +11,6 @@ import DashboardStats from '../../components/Admin/DashboardStats';
 const RescuerDashboard = () => {
   const [activeTab, setActiveTab] = useState('emergency');
 
-  // Mock data - replace with actual API calls
   const { data: dashboardStats } = useQuery({
     queryKey: ['rescuerStats'],
     queryFn: () => ({
@@ -46,68 +44,60 @@ const RescuerDashboard = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="w-full text-app-text transition-colors space-y-6">
       {/* Dashboard Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Rescuer Dashboard</h1>
-        <p className="mt-2 text-gray-600">Manage emergency responses and rescue operations</p>
+      <div>
+        <h1 className="text-3xl font-bold text-app-text">Rescuer Situation Room</h1>
+        <p className="mt-1 text-sm text-app-muted">Tactical search-and-rescue field dispatch and life-safety operations</p>
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div>
         <DashboardStats
           stats={[
             {
-              name: 'Active Emergencies',
+              name: 'Critical Calls',
               value: dashboardStats?.activeEmergencies || 0,
               icon: AlertTriangle,
-              color: 'bg-red-500'
+              color: 'bg-rose-600'
             },
             {
               name: 'Available Teams',
               value: dashboardStats?.availableTeams || 0,
               icon: Users,
-              color: 'bg-green-500'
+              color: 'bg-primary-600'
             },
             {
-              name: 'Ongoing Rescues',
+              name: 'Active Missions',
               value: dashboardStats?.ongoingRescues || 0,
               icon: Truck,
-              color: 'bg-yellow-500'
+              color: 'bg-amber-600'
             },
             {
-              name: 'Completed Rescues',
+              name: 'Evacuations Completed',
               value: dashboardStats?.completedRescues || 0,
               icon: CheckCircle,
-              color: 'bg-blue-500'
+              color: 'bg-emerald-600'
             }
           ]}
         />
       </div>
 
-      {/* Emergency Action Button */}
-      <div className="mb-8">
-        <button className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center hover:bg-red-700 transition-colors">
-          <Phone className="mr-2 h-5 w-5" />
-          Dispatch Emergency Team
-        </button>
-      </div>
-
       {/* Tabs */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+      <div className="border-b border-app-border">
+        <nav className="-mb-px flex space-x-6" aria-label="Tabs">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`
-                flex items-center py-4 px-1 border-b-2 font-medium text-sm
+                flex items-center py-3.5 px-1 border-b-2 font-medium text-sm transition-colors
                 ${activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                  ? 'border-primary-600 text-primary-600 dark:border-sky-400 dark:text-sky-400 font-semibold'
+                  : 'border-transparent text-app-muted hover:text-app-text hover:border-app-border'}
               `}
             >
-              <tab.icon className="mr-2 h-5 w-5" />
+              <tab.icon className="mr-2 h-4 w-4" />
               {tab.name}
             </button>
           ))}
@@ -115,7 +105,7 @@ const RescuerDashboard = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="mt-8">
+      <div className="mt-6">
         {renderTabContent()}
       </div>
     </div>

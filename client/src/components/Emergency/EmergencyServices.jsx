@@ -5,13 +5,11 @@ import {
   Card,
   CardContent,
   Button,
-  Divider,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
   Chip,
-  Grid,
   Alert,
   CircularProgress,
   Dialog,
@@ -23,16 +21,15 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import {
-  LocalHospital as HospitalIcon,
+  HeartPulse as HospitalIcon,
   Home as ShelterIcon,
-  LocalPolice as PoliceIcon,
-  Fireplace as FireStationIcon,
-  LocationOn as LocationIcon,
+  Shield as PoliceIcon,
+  Flame as FireStationIcon,
+  MapPin as LocationIcon,
   Phone as PhoneIcon,
-  ExpandMore as ExpandMoreIcon,
-  Emergency as EmergencyIcon,
-  DirectionsCar as VehicleIcon,
-} from "@mui/icons-material";
+  ChevronDown as ExpandMoreIcon,
+  AlertOctagon as EmergencyIcon,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import emergencyServiceClient from "../../services/emergencyServiceClient";
@@ -42,42 +39,48 @@ const EmergencyContactCard = ({ contacts, onCallEmergency }) => {
   const { t } = useTranslation();
 
   return (
-    <Card elevation={3} sx={{ mb: 3, border: "1px solid #f44336" }}>
-      <Box sx={{ bgcolor: "#f44336", color: "white", p: 2 }}>
-        <Typography variant="h6" sx={{ display: "flex", alignItems: "center" }}>
-          <EmergencyIcon sx={{ mr: 1 }} />
+    <Card elevation={0} sx={{ mb: 3, border: "1px solid rgb(var(--app-border))", borderRadius: 2 }}>
+      <Box sx={{ bgcolor: "error.main", color: "white", p: 2, display: "flex", alignItems: "center" }}>
+        <EmergencyIcon className="w-5 h-5 mr-2 shrink-0" />
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           {t("emergency.emergencyContacts")}
         </Typography>
       </Box>
-      <CardContent>
+      <CardContent sx={{ bgcolor: "background.paper", p: 1 }}>
         <List dense>
           {contacts.map((contact, index) => (
             <ListItem
               key={index}
+              sx={{
+                py: 1,
+                borderBottom: index < contacts.length - 1 ? "1px solid rgb(var(--app-border))" : "none"
+              }}
               secondaryAction={
                 <Button
                   variant="contained"
                   color="error"
                   size="small"
                   onClick={() => onCallEmergency(contact.number)}
+                  sx={{ textTransform: "none", fontWeight: 600, borderRadius: 1.5 }}
                 >
                   {t("emergency.call")}
                 </Button>
               }
             >
-              <ListItemIcon>
-                {contact.type === "police" && <PoliceIcon color="primary" />}
-                {contact.type === "fire" && <FireStationIcon color="error" />}
-                {contact.type === "medical" && <HospitalIcon color="success" />}
-                {contact.type === "ambulance" && (
-                  <HospitalIcon color="success" />
+              <ListItemIcon sx={{ minWidth: 36 }}>
+                {contact.type === "police" && <PoliceIcon className="w-4 h-4 text-blue-500" />}
+                {contact.type === "fire" && <FireStationIcon className="w-4 h-4 text-rose-500" />}
+                {(contact.type === "medical" || contact.type === "ambulance") && (
+                  <HospitalIcon className="w-4 h-4 text-emerald-500" />
                 )}
-                {contact.type === "disaster" && (
-                  <EmergencyIcon color="warning" />
+                {(contact.type === "disaster" || contact.type === "ndrf") && (
+                  <EmergencyIcon className="w-4 h-4 text-amber-500" />
                 )}
-                {contact.type === "ndrf" && <EmergencyIcon color="warning" />}
               </ListItemIcon>
-              <ListItemText primary={contact.name} secondary={contact.number} />
+              <ListItemText
+                primary={<Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>{contact.name}</Typography>}
+                secondary={<Typography variant="caption" sx={{ color: "text.secondary" }}>{contact.number}</Typography>}
+              />
             </ListItem>
           ))}
         </List>
@@ -93,19 +96,29 @@ const EmergencyResourcesList = ({ resources, resourceType, title, icon }) => {
   if (!resources || resources.length === 0) return null;
 
   return (
-    <Accordion defaultExpanded={resourceType === "hospitals"}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion
+      defaultExpanded={resourceType === "hospitals"}
+      sx={{
+        bgcolor: "background.paper",
+        color: "text.primary",
+        border: "1px solid rgb(var(--app-border))",
+        mb: 1.5,
+        borderRadius: "8px !important",
+        "&:before": { display: "none" }
+      }}
+    >
+      <AccordionSummary expandIcon={<ExpandMoreIcon className="w-4 h-4" />}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {icon}
-          <Typography variant="subtitle1" sx={{ ml: 1 }}>
+          <Typography variant="subtitle2" sx={{ ml: 1, fontWeight: 600 }}>
             {title} ({resources.length})
           </Typography>
         </Box>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails sx={{ pt: 0 }}>
         <List dense disablePadding>
           {resources.map((resource) => (
-            <ListItem key={resource.id} divider>
+            <ListItem key={resource.id} sx={{ borderTop: "1px solid rgb(var(--app-border))", py: 1.5 }}>
               <ListItemText
                 primary={
                   <Box
@@ -115,49 +128,50 @@ const EmergencyResourcesList = ({ resources, resourceType, title, icon }) => {
                       alignItems: "center",
                     }}
                   >
-                    <Typography variant="body1">{resource.name}</Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>
+                      {resource.name}
+                    </Typography>
                     <Chip
                       size="small"
                       label={`${resource.distance.toFixed(1)} km`}
-                      color={resource.distance < 2 ? "success" : "primary"}
+                      color={resource.distance < 2 ? "success" : "default"}
                       variant="outlined"
+                      sx={{ height: 22, fontSize: "0.7rem", fontWeight: 600 }}
                     />
                   </Box>
                 }
                 secondary={
-                  <Box sx={{ mt: 1 }}>
+                  <Box sx={{ mt: 0.5 }}>
                     {resource.address && (
                       <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ display: "flex", alignItems: "center" }}
+                        variant="caption"
+                        sx={{ display: "flex", alignItems: "center", color: "text.secondary", mt: 0.25 }}
                       >
-                        <LocationIcon fontSize="small" sx={{ mr: 0.5 }} />
+                        <LocationIcon className="w-3.5 h-3.5 mr-1 shrink-0" />
                         {resource.address}
                       </Typography>
                     )}
                     {resource.phone && (
                       <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ display: "flex", alignItems: "center" }}
+                        variant="caption"
+                        sx={{ display: "flex", alignItems: "center", color: "text.secondary", mt: 0.25 }}
                       >
-                        <PhoneIcon fontSize="small" sx={{ mr: 0.5 }} />
+                        <PhoneIcon className="w-3.5 h-3.5 mr-1 shrink-0" />
                         {resource.phone}
                       </Typography>
                     )}
                     {resourceType === "hospitals" &&
                       resource.beds_available !== undefined && (
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="caption" sx={{ display: "block", color: "text.secondary", mt: 0.25 }}>
                           {t("emergency.bedsAvailable")}:{" "}
-                          {resource.beds_available}
+                          <strong>{resource.beds_available}</strong>
                         </Typography>
                       )}
                     {resourceType === "shelters" &&
                       resource.available_space !== undefined && (
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="caption" sx={{ display: "block", color: "text.secondary", mt: 0.25 }}>
                           {t("emergency.availableSpace")}:{" "}
-                          {resource.available_space}/{resource.capacity}
+                          <strong>{resource.available_space}/{resource.capacity}</strong>
                         </Typography>
                       )}
                   </Box>
@@ -184,7 +198,6 @@ const EmergencyServices = () => {
   const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
-    // Fetch emergency contacts when component mounts
     const fetchEmergencyContacts = async () => {
       try {
         const contactsData =
@@ -200,7 +213,6 @@ const EmergencyServices = () => {
   }, [t]);
 
   useEffect(() => {
-    // Fetch nearby emergency resources when coordinates change
     const fetchEmergencyResources = async () => {
       if (!coordinates || !coordinates.latitude || !coordinates.longitude) {
         return;
@@ -212,7 +224,7 @@ const EmergencyServices = () => {
           await emergencyServiceClient.getNearbyEmergencyResources(
             coordinates.longitude,
             coordinates.latitude,
-            5000, // 5km radius
+            5000,
             ["hospital", "shelter", "police", "fire_station"]
           );
         setResources(resourcesData);
@@ -244,19 +256,17 @@ const EmergencyServices = () => {
       setError(t("emergency.locationRequired"));
       return;
     }
-
-    // In a real application, this would open a form to collect emergency details
     alert(t("emergency.reportEmergencyPrompt"));
   };
 
   return (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h4" gutterBottom>
+    <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
+      <Typography variant="h5" gutterBottom sx={{ fontWeight: 700, color: "text.primary" }}>
         {t("emergency.emergencyServices")}
       </Typography>
 
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Alert severity="error" sx={{ mb: 2, borderRadius: 2 }}>
           {error}
         </Alert>
       )}
@@ -266,8 +276,16 @@ const EmergencyServices = () => {
         color="error"
         fullWidth
         size="large"
-        startIcon={<EmergencyIcon />}
-        sx={{ mb: 3, py: 1.5, fontSize: "1.1rem" }}
+        startIcon={<EmergencyIcon className="w-5 h-5 mr-1" />}
+        sx={{
+          mb: 3,
+          py: 1.5,
+          fontSize: "1rem",
+          fontWeight: 700,
+          borderRadius: 2,
+          textTransform: "none",
+          boxShadow: "0 2px 8px rgba(225, 29, 72, 0.25)"
+        }}
         onClick={handleReportEmergency}
       >
         {t("emergency.reportEmergency")}
@@ -278,13 +296,13 @@ const EmergencyServices = () => {
         onCallEmergency={handleCallEmergency}
       />
 
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: "text.primary", mt: 3 }}>
         {t("emergency.nearbyResources")}
       </Typography>
 
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
-          <CircularProgress />
+          <CircularProgress size={32} />
         </Box>
       ) : (
         <>
@@ -292,39 +310,37 @@ const EmergencyServices = () => {
           !resources.shelters &&
           !resources.police_stations &&
           !resources.fire_stations ? (
-            <Alert severity="info">{t("emergency.noResourcesFound")}</Alert>
+            <Alert severity="info" sx={{ borderRadius: 2 }}>{t("emergency.noResourcesFound")}</Alert>
           ) : (
-            <Card elevation={2}>
-              <CardContent>
-                <EmergencyResourcesList
-                  resources={resources.hospitals}
-                  resourceType="hospitals"
-                  title={t("emergency.hospitals")}
-                  icon={<HospitalIcon color="primary" />}
-                />
+            <Box>
+              <EmergencyResourcesList
+                resources={resources.hospitals}
+                resourceType="hospitals"
+                title={t("emergency.hospitals")}
+                icon={<HospitalIcon className="w-4 h-4 text-emerald-500" />}
+              />
 
-                <EmergencyResourcesList
-                  resources={resources.shelters}
-                  resourceType="shelters"
-                  title={t("emergency.shelters")}
-                  icon={<ShelterIcon color="secondary" />}
-                />
+              <EmergencyResourcesList
+                resources={resources.shelters}
+                resourceType="shelters"
+                title={t("emergency.shelters")}
+                icon={<ShelterIcon className="w-4 h-4 text-sky-500" />}
+              />
 
-                <EmergencyResourcesList
-                  resources={resources.police_stations}
-                  resourceType="police"
-                  title={t("emergency.policeStations")}
-                  icon={<PoliceIcon color="info" />}
-                />
+              <EmergencyResourcesList
+                resources={resources.police_stations}
+                resourceType="police"
+                title={t("emergency.policeStations")}
+                icon={<PoliceIcon className="w-4 h-4 text-indigo-500" />}
+              />
 
-                <EmergencyResourcesList
-                  resources={resources.fire_stations}
-                  resourceType="fire"
-                  title={t("emergency.fireStations")}
-                  icon={<FireStationIcon color="error" />}
-                />
-              </CardContent>
-            </Card>
+              <EmergencyResourcesList
+                resources={resources.fire_stations}
+                resourceType="fire"
+                title={t("emergency.fireStations")}
+                icon={<FireStationIcon className="w-4 h-4 text-rose-500" />}
+              />
+            </Box>
           )}
         </>
       )}
@@ -332,20 +348,28 @@ const EmergencyServices = () => {
       <Dialog
         open={showEmergencyDialog}
         onClose={() => setShowEmergencyDialog(false)}
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            bgcolor: "background.paper",
+            backgroundImage: "none",
+            border: "1px solid rgb(var(--app-border))"
+          }
+        }}
       >
-        <DialogTitle sx={{ bgcolor: "error.main", color: "white" }}>
+        <DialogTitle sx={{ bgcolor: "error.main", color: "white", fontWeight: 700 }}>
           {t("emergency.emergencyCall")}
         </DialogTitle>
-        <DialogContent sx={{ pt: 2, mt: 2 }}>
-          <Typography>
-            {t("emergency.confirmEmergencyCall")} {selectedContact}?
+        <DialogContent sx={{ pt: 3, mt: 1 }}>
+          <Typography sx={{ color: "text.primary", fontWeight: 500 }}>
+            {t("emergency.confirmEmergencyCall")} <strong>{selectedContact}</strong>?
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          <Typography variant="body2" sx={{ mt: 1.5, color: "text.secondary" }}>
             {t("emergency.onlyUseForEmergencies")}
           </Typography>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowEmergencyDialog(false)}>
+        <DialogActions sx={{ p: 2 }}>
+          <Button onClick={() => setShowEmergencyDialog(false)} sx={{ color: "text.secondary" }}>
             {t("common.cancel")}
           </Button>
           <Button
@@ -353,6 +377,7 @@ const EmergencyServices = () => {
             color="error"
             onClick={handleConfirmCall}
             autoFocus
+            sx={{ fontWeight: 600, borderRadius: 1.5 }}
           >
             {t("emergency.callNow")}
           </Button>

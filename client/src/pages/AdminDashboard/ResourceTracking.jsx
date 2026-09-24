@@ -381,27 +381,27 @@ const ResourceTracking = () => {
 
     switch (statusValue) {
       case "available":
-        bgColor = "bg-green-100 text-green-800 border-green-200";
+        bgColor = "bg-emerald-50 text-emerald-700 border border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800";
         icon = <CheckCircle className="w-3 h-3 mr-1" />;
         break;
       case "in_use":
-        bgColor = "bg-blue-100 text-blue-800 border-blue-200";
+        bgColor = "bg-sky-50 text-sky-700 border border-sky-300 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800";
         icon = <Truck className="w-3 h-3 mr-1" />;
         break;
       case "low_stock":
-        bgColor = "bg-yellow-100 text-yellow-800 border-yellow-200";
+        bgColor = "bg-amber-50 text-amber-700 border border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800";
         icon = <AlertTriangle className="w-3 h-3 mr-1" />;
         break;
       case "maintenance":
-        bgColor = "bg-orange-100 text-orange-800 border-orange-200";
+        bgColor = "bg-orange-50 text-orange-700 border border-orange-300 dark:bg-orange-950/40 dark:text-orange-300 dark:border-orange-800";
         icon = <AlertCircle className="w-3 h-3 mr-1" />;
         break;
       case "unavailable":
-        bgColor = "bg-red-100 text-red-800 border-red-200";
+        bgColor = "bg-rose-50 text-rose-700 border border-rose-300 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800";
         icon = <X className="w-3 h-3 mr-1" />;
         break;
       default:
-        bgColor = "bg-gray-100 text-gray-800 border-gray-200";
+        bgColor = "bg-slate-100 text-slate-700 border border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
         icon = <AlertCircle className="w-3 h-3 mr-1" />;
     }
 
@@ -437,21 +437,21 @@ const ResourceTracking = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="px-6 py-5 border-b border-gray-200">
+    <div className="space-y-6 text-app-text transition-colors">
+      <div className="bg-app-card rounded-xl border border-app-card-border shadow-sm overflow-hidden">
+        <div className="px-6 py-5 border-b border-app-border bg-app-surface">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-app-text">
                 Resource Tracking System
               </h1>
-              <p className="text-gray-500 mt-1">
-                Monitor and manage emergency resources
+              <p className="text-app-muted mt-1 text-sm">
+                Monitor and manage emergency resources across operational sectors
               </p>
             </div>
             <div className="mt-4 sm:mt-0">
               <button
-                className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md flex items-center"
+                className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-xl shadow-sm text-sm flex items-center transition-colors"
                 onClick={() => {
                   resetForm();
                   setResourceToEdit(null);
@@ -466,86 +466,86 @@ const ResourceTracking = () => {
         </div>
 
         {/* Resource Summary Cards */}
-        <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 border-b border-gray-200">
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-app-surface/50 border-b border-app-border">
+          <div className="bg-app-card p-4 rounded-xl border border-app-card-border shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">
+                <p className="text-xs font-semibold text-app-muted uppercase">
                   Total Resources
                 </p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-app-text mt-1">
                   {resourcesData?.summary?.totalResources || 0}
                 </p>
               </div>
-              <div className="p-2 bg-blue-100 text-blue-700 rounded-full">
+              <div className="p-2.5 bg-primary-50 text-primary-700 dark:bg-primary-950/40 dark:text-sky-300 rounded-xl">
                 <Package className="w-5 h-5" />
               </div>
             </div>
             <div className="mt-2">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-app-muted">
                 Total Quantity: {resourcesData?.summary?.totalQuantity || 0}{" "}
                 units
               </p>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div className="bg-app-card p-4 rounded-xl border border-app-card-border shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">
+                <p className="text-xs font-semibold text-app-muted uppercase">
                   Available Resources
                 </p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
                   {resourcesData?.summary?.availableResources || 0}
                 </p>
               </div>
-              <div className="p-2 bg-green-100 text-green-700 rounded-full">
+              <div className="p-2.5 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 rounded-xl">
                 <CheckCircle className="w-5 h-5" />
               </div>
             </div>
             <div className="mt-2">
-              <p className="text-xs text-gray-500">Ready for deployment</p>
+              <p className="text-xs text-app-muted">Ready for deployment</p>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div className="bg-app-card p-4 rounded-xl border border-app-card-border shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">
+                <p className="text-xs font-semibold text-app-muted uppercase">
                   In Use Resources
                 </p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-2xl font-bold text-sky-600 dark:text-sky-400 mt-1">
                   {resourcesData?.summary?.inUseResources || 0}
                 </p>
               </div>
-              <div className="p-2 bg-blue-100 text-blue-700 rounded-full">
+              <div className="p-2.5 bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300 rounded-xl">
                 <Truck className="w-5 h-5" />
               </div>
             </div>
             <div className="mt-2">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-app-muted">
                 Currently deployed in operations
               </p>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div className="bg-app-card p-4 rounded-xl border border-app-card-border shadow-sm">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">
+                <p className="text-xs font-semibold text-app-muted uppercase">
                   Needs Attention
                 </p>
-                <p className="text-2xl font-bold text-yellow-600">
+                <p className="text-2xl font-bold text-amber-600 dark:text-amber-400 mt-1">
                   {(resourcesData?.summary?.lowStockResources || 0) +
                     (resourcesData?.summary?.maintenanceResources || 0)}
                 </p>
               </div>
-              <div className="p-2 bg-yellow-100 text-yellow-700 rounded-full">
+              <div className="p-2.5 bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 rounded-xl">
                 <AlertTriangle className="w-5 h-5" />
               </div>
             </div>
             <div className="mt-2">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-app-muted">
                 Low stock or maintenance required
               </p>
             </div>
@@ -598,26 +598,26 @@ const ResourceTracking = () => {
         {activeTab === "inventory" && (
           <>
             {/* Filters */}
-            <div className="p-4 bg-gray-50 border-b border-gray-200">
+            <div className="p-4 bg-app-surface border-b border-app-border">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
+                    <Search className="h-4 w-4 text-app-muted" />
                   </div>
                   <input
                     type="text"
                     placeholder="Search resources..."
-                    className="pl-10 w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="pl-9 w-full rounded-lg border border-app-input-border bg-app-input py-2 px-3 text-xs text-app-text focus:outline-none focus:ring-2 focus:ring-primary-500"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Package className="h-5 w-5 text-gray-400" />
+                    <Package className="h-4 w-4 text-app-muted" />
                   </div>
                   <select
-                    className="pl-10 w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="pl-9 w-full rounded-lg border border-app-input-border bg-app-input py-2 px-3 text-xs text-app-text focus:outline-none focus:ring-2 focus:ring-primary-500"
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                   >
@@ -631,10 +631,10 @@ const ResourceTracking = () => {
                 </div>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <MapPin className="h-5 w-5 text-gray-400" />
+                    <MapPin className="h-4 w-4 text-app-muted" />
                   </div>
                   <select
-                    className="pl-10 w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="pl-9 w-full rounded-lg border border-app-input-border bg-app-input py-2 px-3 text-xs text-app-text focus:outline-none focus:ring-2 focus:ring-primary-500"
                     value={locationFilter}
                     onChange={(e) => setLocationFilter(e.target.value)}
                   >
@@ -649,22 +649,22 @@ const ResourceTracking = () => {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => refetch()}
-                    className="bg-white border border-gray-300 rounded-md p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                    className="bg-app-card border border-app-border rounded-lg p-2 text-app-muted hover:text-app-text hover:bg-app-hover transition-colors"
                     title="Refresh"
                   >
-                    <RefreshCcw className="w-5 h-5" />
+                    <RefreshCcw className="w-4 h-4" />
                   </button>
                   <button
-                    className="bg-white border border-gray-300 rounded-md p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                    className="bg-app-card border border-app-border rounded-lg p-2 text-app-muted hover:text-app-text hover:bg-app-hover transition-colors"
                     title="Export Resources"
                   >
-                    <Download className="w-5 h-5" />
+                    <Download className="w-4 h-4" />
                   </button>
                   <button
-                    className="bg-white border border-gray-300 rounded-md p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                    className="bg-app-card border border-app-border rounded-lg p-2 text-app-muted hover:text-app-text hover:bg-app-hover transition-colors"
                     title="Filter Options"
                   >
-                    <Filter className="w-5 h-5" />
+                    <Filter className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -672,151 +672,155 @@ const ResourceTracking = () => {
 
             {/* Resources Table */}
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-app-border">
+                <thead className="bg-app-surface">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      className="px-6 py-3 text-left text-xs font-semibold text-app-muted uppercase tracking-wider cursor-pointer"
                       onClick={() => handleSort("name")}
                     >
                       <div className="flex items-center">
                         <span>Resource Name</span>
                         {sortField === "name" &&
                           (sortOrder === "asc" ? (
-                            <ChevronUp className="w-4 h-4 ml-1" />
+                            <ChevronUp className="w-3.5 h-3.5 ml-1" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 ml-1" />
+                            <ChevronDown className="w-3.5 h-3.5 ml-1" />
                           ))}
                       </div>
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      className="px-6 py-3 text-left text-xs font-semibold text-app-muted uppercase tracking-wider cursor-pointer"
                       onClick={() => handleSort("category")}
                     >
                       <div className="flex items-center">
                         <span>Category</span>
                         {sortField === "category" &&
                           (sortOrder === "asc" ? (
-                            <ChevronUp className="w-4 h-4 ml-1" />
+                            <ChevronUp className="w-3.5 h-3.5 ml-1" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 ml-1" />
+                            <ChevronDown className="w-3.5 h-3.5 ml-1" />
                           ))}
                       </div>
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      className="px-6 py-3 text-left text-xs font-semibold text-app-muted uppercase tracking-wider cursor-pointer"
                       onClick={() => handleSort("quantity")}
                     >
                       <div className="flex items-center">
                         <span>Quantity</span>
                         {sortField === "quantity" &&
                           (sortOrder === "asc" ? (
-                            <ChevronUp className="w-4 h-4 ml-1" />
+                            <ChevronUp className="w-3.5 h-3.5 ml-1" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 ml-1" />
+                            <ChevronDown className="w-3.5 h-3.5 ml-1" />
                           ))}
                       </div>
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-semibold text-app-muted uppercase tracking-wider"
                     >
                       Location
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      className="px-6 py-3 text-left text-xs font-semibold text-app-muted uppercase tracking-wider cursor-pointer"
                       onClick={() => handleSort("status")}
                     >
                       <div className="flex items-center">
                         <span>Status</span>
                         {sortField === "status" &&
                           (sortOrder === "asc" ? (
-                            <ChevronUp className="w-4 h-4 ml-1" />
+                            <ChevronUp className="w-3.5 h-3.5 ml-1" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 ml-1" />
+                            <ChevronDown className="w-3.5 h-3.5 ml-1" />
                           ))}
                       </div>
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-semibold text-app-muted uppercase tracking-wider"
                     >
                       Last Used
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-right text-xs font-semibold text-app-muted uppercase tracking-wider"
                     >
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-app-card divide-y divide-app-border">
                   {(resourcesData?.resources || []).map((resource) => {
                     const categoryInfo = getCategoryInfo(resource.category);
                     const statusInfo = getStatusInfo(resource.status);
 
                     return (
-                      <tr key={resource.id} className="hover:bg-gray-50">
+                      <tr key={resource.id} className="hover:bg-app-hover transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className="text-sm font-semibold text-app-text">
                               {resource.name}
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="p-1 mr-2 bg-blue-50 text-blue-700 rounded">
+                            <div className="p-1 mr-2 bg-primary-50 text-primary-700 dark:bg-primary-950/40 dark:text-sky-300 rounded">
                               {categoryInfo.icon}
                             </div>
-                            <span className="text-sm text-gray-900">
+                            <span className="text-sm text-app-text">
                               {categoryInfo.label}
                             </span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-app-text font-medium">
                           {resource.quantity}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <MapPin className="w-4 h-4 text-gray-400 mr-1" />
-                            <span className="text-sm text-gray-900">
+                            <MapPin className="w-3.5 h-3.5 text-app-muted mr-1" />
+                            <span className="text-sm text-app-text">
                               {resource.location}
                             </span>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
-                            className={`px-2 py-1 inline-flex items-center text-xs leading-5 font-semibold rounded-full border ${statusInfo.bgColor}`}
+                            className={`px-2 py-0.5 inline-flex items-center text-xs leading-5 font-semibold rounded-full border ${statusInfo.bgColor}`}
                           >
                             {statusInfo.icon}
                             {statusInfo.label}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-app-muted">
                           {formatDate(resource.lastUsed)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <button
-                            className="text-primary-600 hover:text-primary-900 mr-3"
-                            onClick={() => handleEditResource(resource)}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button
-                            className="text-red-600 hover:text-red-900"
-                            onClick={() => {
-                              setResourceToDelete(resource);
-                              setShowDeleteConfirmation(true);
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
+                          <div className="flex items-center justify-end space-x-2">
+                            <button
+                              className="p-1 rounded-lg text-app-muted hover:text-app-text hover:bg-app-hover transition-colors"
+                              onClick={() => handleEditResource(resource)}
+                              title="Edit resource"
+                            >
+                              <Edit className="w-4 h-4" />
+                            </button>
+                            <button
+                              className="p-1 rounded-lg text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                              onClick={() => {
+                                setResourceToDelete(resource);
+                                setShowDeleteConfirmation(true);
+                              }}
+                              title="Delete resource"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );

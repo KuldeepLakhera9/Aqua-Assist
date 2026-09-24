@@ -26,15 +26,15 @@ import {
   useTheme,
 } from "@mui/material";
 import {
-  CheckCircle as CheckCircleIcon,
-  Cancel as CancelIcon,
-  PlayArrow as RunIcon,
-  Refresh as RefreshIcon,
-  AutoAwesome as AutoAwesomeIcon,
+  CheckCircle2 as CheckCircleIcon,
+  XCircle as CancelIcon,
+  Play as RunIcon,
+  RefreshCw as RefreshIcon,
+  Sparkles as AutoAwesomeIcon,
   Info as InfoIcon,
-  PriorityHigh as PriorityHighIcon,
-  VisibilityOutlined as ViewIcon,
-} from "@mui/icons-material";
+  AlertTriangle as PriorityHighIcon,
+  Eye as ViewIcon,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import verificationService from "../../services/verificationService";
 import floodReportService from "../../services/floodReportService";
@@ -172,9 +172,9 @@ const AIVerificationDashboard = () => {
       <Typography
         variant="h4"
         gutterBottom
-        sx={{ display: "flex", alignItems: "center" }}
+        sx={{ display: "flex", alignItems: "center", fontWeight: 700 }}
       >
-        <AutoAwesomeIcon sx={{ mr: 1, color: theme.palette.primary.main }} />
+        <AutoAwesomeIcon className="w-7 h-7 mr-2 text-primary-600 dark:text-sky-400 shrink-0 inline-block" />
         AI Report Verification Dashboard
       </Typography>
 
@@ -268,7 +268,7 @@ const AIVerificationDashboard = () => {
             runningVerification ? (
               <CircularProgress size={20} color="inherit" />
             ) : (
-              <AutoAwesomeIcon />
+              <AutoAwesomeIcon className="w-4 h-4" />
             )
           }
         >
@@ -278,7 +278,7 @@ const AIVerificationDashboard = () => {
         <Button
           variant="outlined"
           onClick={fetchDashboardData}
-          startIcon={<RefreshIcon />}
+          startIcon={<RefreshIcon className="w-4 h-4" />}
           disabled={runningVerification}
         >
           Refresh Data
@@ -362,7 +362,7 @@ const AIVerificationDashboard = () => {
                         size="small"
                         title="Run AI Verification"
                       >
-                        <RunIcon />
+                        <RunIcon className="w-4 h-4" />
                       </IconButton>
                       <IconButton
                         color="secondary"
@@ -370,7 +370,7 @@ const AIVerificationDashboard = () => {
                         size="small"
                         title="View Details"
                       >
-                        <ViewIcon />
+                        <ViewIcon className="w-4 h-4" />
                       </IconButton>
                     </Stack>
                   </TableCell>
@@ -503,7 +503,7 @@ const AIVerificationDashboard = () => {
                 runningVerification ? (
                   <CircularProgress size={20} color="inherit" />
                 ) : (
-                  <AutoAwesomeIcon />
+                  <AutoAwesomeIcon className="w-4 h-4" />
                 )
               }
             >

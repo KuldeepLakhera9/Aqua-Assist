@@ -2,14 +2,14 @@ import React from "react";
 import FloodReportTable from "../../components/Admin/FloodReportTable";
 import { useNavigate } from "react-router-dom";
 import {
-  UserGroupIcon,
-  PresentationChartLineIcon,
-  ShieldExclamationIcon,
-  TruckIcon,
-  BanknotesIcon,
-  CheckCircleIcon,
-  BuildingOfficeIcon,
-} from "@heroicons/react/24/outline";
+  Users,
+  BarChart3,
+  ShieldAlert,
+  Truck,
+  Banknote,
+  CheckCircle,
+  Building2,
+} from "lucide-react";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -18,63 +18,56 @@ const AdminDashboard = () => {
     {
       title: "User Management",
       description: "Manage user accounts, roles, and permissions.",
-      icon: UserGroupIcon,
-      color: "bg-blue-500 hover:bg-blue-600",
+      icon: Users,
       route: "/admin/users",
     },
     {
       title: "Advanced Analytics",
       description:
         "View system performance, flood data trends, and user activity.",
-      icon: PresentationChartLineIcon,
-      color: "bg-green-500 hover:bg-green-600",
+      icon: BarChart3,
       route: "/admin/analytics",
     },
     {
       title: "Resource Tracking",
       description: "Monitor and manage emergency resources and equipment.",
-      icon: TruckIcon,
-      color: "bg-purple-500 hover:bg-purple-600",
+      icon: Truck,
       route: "/admin/resources",
     },
     {
       title: "Municipality Dashboard",
       description: "Manage municipality data and municipal services.",
-      icon: BuildingOfficeIcon,
-      color: "bg-indigo-500 hover:bg-indigo-600",
+      icon: Building2,
       route: "/admin/municipality",
     },
     {
       title: "Rescuer Dashboard",
       description: "Coordinate rescue teams and emergency response.",
-      icon: ShieldExclamationIcon,
-      color: "bg-red-500 hover:bg-red-600",
+      icon: ShieldAlert,
       route: "/admin/rescuer",
     },
     {
       title: "Financial Aid Requests",
       description: "Review and manage financial assistance applications.",
-      icon: BanknotesIcon,
-      color: "bg-yellow-500 hover:bg-yellow-600",
+      icon: Banknote,
       route: "/admin/financial-aid",
     },
     {
       title: "AI Report Verification",
       description:
         "Review AI-verified reports and adjust verification settings.",
-      icon: CheckCircleIcon,
-      color: "bg-teal-500 hover:bg-teal-600",
+      icon: CheckCircle,
       route: "/admin/verification",
     },
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full text-app-text transition-colors">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-        <p className="mt-2 text-gray-600">
-          Welcome to the administrator dashboard. Here you can manage users,
-          view system analytics, and configure emergency settings.
+        <h1 className="text-3xl font-bold text-app-text">Admin Dashboard</h1>
+        <p className="mt-2 text-app-muted">
+          State disaster administration situation room. Manage users, allocate
+          tactical resources, and monitor verified crisis telemetry.
         </p>
       </div>
 
@@ -84,20 +77,22 @@ const AdminDashboard = () => {
           return (
             <div
               key={card.title}
-              className="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+              className="bg-app-card p-6 rounded-xl shadow-sm border border-app-card-border hover:border-primary-500/50 hover:shadow-md transition-all flex flex-col justify-between"
             >
-              <div className="flex items-center mb-4">
-                <div className="p-3 rounded-lg bg-gray-100">
-                  <IconComponent className="w-6 h-6 text-gray-600" />
+              <div>
+                <div className="flex items-center mb-4">
+                  <div className="p-3 rounded-lg bg-app-surface border border-app-border text-primary-600 dark:text-sky-400">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
                 </div>
+                <h2 className="text-lg font-semibold mb-2 text-app-text">
+                  {card.title}
+                </h2>
+                <p className="text-app-muted mb-6 text-sm">{card.description}</p>
               </div>
-              <h2 className="text-xl font-semibold mb-2 text-gray-900">
-                {card.title}
-              </h2>
-              <p className="text-gray-600 mb-4 text-sm">{card.description}</p>
               <button
                 onClick={() => navigate(card.route)}
-                className={`w-full px-4 py-2 text-white rounded-md transition-colors ${card.color} font-medium text-sm`}
+                className="w-full px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors font-medium text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
                 Access {card.title}
               </button>
@@ -108,39 +103,39 @@ const AdminDashboard = () => {
 
       {/* Quick Stats Section */}
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <div className="bg-app-card p-6 rounded-xl shadow-sm border border-app-card-border">
+          <h3 className="text-sm font-medium text-app-muted mb-2">
             Active Users
           </h3>
-          <p className="text-3xl font-bold text-blue-600">1,234</p>
-          <p className="text-sm text-gray-500 mt-1">+12% from last month</p>
+          <p className="text-3xl font-bold text-app-text">1,234</p>
+          <p className="text-xs text-app-muted mt-1">+12% from last month</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Active Alerts
+        <div className="bg-app-card p-6 rounded-xl shadow-sm border border-app-card-border">
+          <h3 className="text-sm font-medium text-app-muted mb-2">
+            Active Flood Alerts
           </h3>
-          <p className="text-3xl font-bold text-red-600">5</p>
-          <p className="text-sm text-gray-500 mt-1">2 high priority</p>
+          <p className="text-3xl font-bold text-red-600 dark:text-red-400">5</p>
+          <p className="text-xs text-red-600/80 dark:text-red-400/80 mt-1 font-medium">2 critical danger zones</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Reports Today
+        <div className="bg-app-card p-6 rounded-xl shadow-sm border border-app-card-border">
+          <h3 className="text-sm font-medium text-app-muted mb-2">
+            Reports Processed Today
           </h3>
-          <p className="text-3xl font-bold text-green-600">23</p>
-          <p className="text-sm text-gray-500 mt-1">18 verified</p>
+          <p className="text-3xl font-bold text-app-text">23</p>
+          <p className="text-xs text-app-muted mt-1">18 verified by AI</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Response Time
+        <div className="bg-app-card p-6 rounded-xl shadow-sm border border-app-card-border">
+          <h3 className="text-sm font-medium text-app-muted mb-2">
+            Rescue Velocity
           </h3>
-          <p className="text-3xl font-bold text-purple-600">8m</p>
-          <p className="text-sm text-gray-500 mt-1">Average response time</p>
+          <p className="text-3xl font-bold text-app-text">8m</p>
+          <p className="text-xs text-app-muted mt-1">Mean response dispatch</p>
         </div>
       </div>
 
       {/* Flood Reports Table */}
       <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-4">Flood Reports</h2>
+        <h2 className="text-2xl font-bold text-app-text mb-4">Flood Incident Queue</h2>
         <FloodReportTable />
       </div>
     </div>

@@ -41,11 +41,13 @@ import {
   Bar,
   Cell,
 } from "recharts";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import WarningIcon from "@mui/icons-material/Warning";
-import ErrorIcon from "@mui/icons-material/Error";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import {
+  RefreshCw as RefreshIcon,
+  AlertTriangle as WarningIcon,
+  AlertCircle as ErrorIcon,
+  CheckCircle2 as CheckCircleIcon,
+  BellRing as NotificationsActiveIcon,
+} from "lucide-react";
 import { analyticsService } from "../../services/analyticsService";
 
 const SensorMonitoringComponent = ({

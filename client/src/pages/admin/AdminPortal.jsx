@@ -1,22 +1,24 @@
 import React from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import ThemeToggle from "../../components/Common/ThemeToggle";
 import {
-  ChartPieIcon,
-  UserGroupIcon,
-  TruckIcon,
-  BuildingOfficeIcon,
-  ShieldExclamationIcon,
-  BanknotesIcon,
-  CheckCircleIcon,
-  PresentationChartLineIcon,
-  ArrowRightOnRectangleIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
+  PieChart,
+  Users,
+  Truck,
+  Building2,
+  ShieldAlert,
+  Banknote,
+  CheckCircle,
+  BarChart3,
+  LogOut,
+  UserCircle,
+} from "lucide-react";
 
 const AdminPortal = () => {
   const { user, logout } = useAuth();
-  const location = useLocation(); // Helper function to check if user has any of the required roles
+  const location = useLocation();
+
   const hasAnyRole = (roles) => {
     if (!user) return false;
     return roles.some(
@@ -25,148 +27,153 @@ const AdminPortal = () => {
   };
 
   const isActive = (path) => {
-    // Special handling for dashboard route
     if (
       path === "/admin" &&
       (location.pathname === "/admin" ||
         location.pathname === "/admin/dashboard")
     ) {
-      return "bg-blue-50 text-blue-700 border-r-2 border-blue-700";
+      return "bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-sky-400 border-r-2 border-primary-600 dark:border-sky-400";
     }
 
     return location.pathname === path
-      ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700"
-      : "hover:bg-gray-50 text-gray-700";
+      ? "bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-sky-400 border-r-2 border-primary-600 dark:border-sky-400"
+      : "hover:bg-app-hover text-app-muted hover:text-app-text";
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-app-base text-app-text flex transition-colors">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md h-screen sticky top-0">
-        <div className="p-4 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-800">Admin Portal</h1>
-          <p className="text-sm text-gray-500">Flood Management System</p>
+      <aside className="w-64 bg-app-surface border-r border-app-border h-screen sticky top-0 flex flex-col justify-between transition-colors">
+        <div>
+          <div className="p-4 border-b border-app-border flex items-center justify-between">
+            <div>
+              <h1 className="text-lg font-bold text-app-text">Admin Portal</h1>
+              <p className="text-xs text-app-muted">National Disaster System</p>
+            </div>
+            <ThemeToggle className="ml-2" />
+          </div>
+
+          <nav className="mt-4">
+            <ul className="space-y-1">
+              <li>
+                <Link
+                  to="/admin"
+                  className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                    "/admin"
+                  )} font-medium mx-2 transition-colors`}
+                >
+                  <PieChart className="w-4 h-4 mr-2.5" />
+                  Dashboard
+                </Link>
+              </li>
+
+              {hasAnyRole(["admin"]) && (
+                <li>
+                  <Link
+                    to="/admin/analytics"
+                    className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                      "/admin/analytics"
+                    )} font-medium mx-2 transition-colors`}
+                  >
+                    <BarChart3 className="w-4 h-4 mr-2.5" />
+                    Advanced Analytics
+                  </Link>
+                </li>
+              )}
+
+              {hasAnyRole(["admin"]) && (
+                <li>
+                  <Link
+                    to="/admin/users"
+                    className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                      "/admin/users"
+                    )} font-medium mx-2 transition-colors`}
+                  >
+                    <Users className="w-4 h-4 mr-2.5" />
+                    User Management
+                  </Link>
+                </li>
+              )}
+
+              {hasAnyRole(["admin", "municipality"]) && (
+                <li>
+                  <Link
+                    to="/admin/resources"
+                    className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                      "/admin/resources"
+                    )} font-medium mx-2 transition-colors`}
+                  >
+                    <Truck className="w-4 h-4 mr-2.5" />
+                    Resource Tracking
+                  </Link>
+                </li>
+              )}
+
+              <li>
+                <Link
+                  to="/admin/municipality"
+                  className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                    "/admin/municipality"
+                  )} font-medium mx-2 transition-colors`}
+                >
+                  <Building2 className="w-4 h-4 mr-2.5" />
+                  Municipality Dashboard
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/admin/rescuer"
+                  className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                    "/admin/rescuer"
+                  )} font-medium mx-2 transition-colors`}
+                >
+                  <ShieldAlert className="w-4 h-4 mr-2.5" />
+                  Rescuer Dashboard
+                </Link>
+              </li>
+
+              {hasAnyRole(["admin", "municipality"]) && (
+                <li>
+                  <Link
+                    to="/admin/financial-aid"
+                    className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                      "/admin/financial-aid"
+                    )} font-medium mx-2 transition-colors`}
+                  >
+                    <Banknote className="w-4 h-4 mr-2.5" />
+                    Financial Aid Requests
+                  </Link>
+                </li>
+              )}
+
+              {hasAnyRole(["admin", "municipality"]) && (
+                <li>
+                  <Link
+                    to="/admin/verification"
+                    className={`flex items-center px-4 py-2.5 rounded-md ${isActive(
+                      "/admin/verification"
+                    )} font-medium mx-2 transition-colors`}
+                  >
+                    <CheckCircle className="w-4 h-4 mr-2.5" />
+                    AI Report Verification
+                  </Link>
+                </li>
+              )}
+            </ul>
+          </nav>
         </div>
-        <nav className="mt-4">
-          <ul className="space-y-1">
-            <li>
-              <Link
-                to="/admin"
-                className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                  "/admin"
-                )} font-medium mx-2`}
-              >
-                <ChartPieIcon className="w-5 h-5 mr-2" />
-                Dashboard
-              </Link>
-            </li>
-
-            {hasAnyRole(["admin"]) && (
-              <li>
-                <Link
-                  to="/admin/analytics"
-                  className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                    "/admin/analytics"
-                  )} font-medium mx-2`}
-                >
-                  <PresentationChartLineIcon className="w-5 h-5 mr-2" />
-                  Advanced Analytics
-                </Link>
-              </li>
-            )}
-
-            {hasAnyRole(["admin"]) && (
-              <li>
-                <Link
-                  to="/admin/users"
-                  className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                    "/admin/users"
-                  )} font-medium mx-2`}
-                >
-                  <UserGroupIcon className="w-5 h-5 mr-2" />
-                  User Management
-                </Link>
-              </li>
-            )}
-
-            {hasAnyRole(["admin", "municipality"]) && (
-              <li>
-                <Link
-                  to="/admin/resources"
-                  className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                    "/admin/resources"
-                  )} font-medium mx-2`}
-                >
-                  <TruckIcon className="w-5 h-5 mr-2" />
-                  Resource Tracking
-                </Link>
-              </li>
-            )}
-
-            <li>
-              <Link
-                to="/admin/municipality"
-                className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                  "/admin/municipality"
-                )} font-medium mx-2`}
-              >
-                <BuildingOfficeIcon className="w-5 h-5 mr-2" />
-                Municipality Dashboard
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/admin/rescuer"
-                className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                  "/admin/rescuer"
-                )} font-medium mx-2`}
-              >
-                <ShieldExclamationIcon className="w-5 h-5 mr-2" />
-                Rescuer Dashboard
-              </Link>
-            </li>
-
-            {hasAnyRole(["admin", "municipality"]) && (
-              <li>
-                <Link
-                  to="/admin/financial-aid"
-                  className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                    "/admin/financial-aid"
-                  )} font-medium mx-2`}
-                >
-                  <BanknotesIcon className="w-5 h-5 mr-2" />
-                  Financial Aid Requests
-                </Link>
-              </li>
-            )}
-
-            {hasAnyRole(["admin", "municipality"]) && (
-              <li>
-                <Link
-                  to="/admin/verification"
-                  className={`flex items-center px-4 py-2 rounded-md ${isActive(
-                    "/admin/verification"
-                  )} font-medium mx-2`}
-                >
-                  <CheckCircleIcon className="w-5 h-5 mr-2" />
-                  AI Report Verification
-                </Link>
-              </li>
-            )}
-          </ul>
-        </nav>
 
         {/* User Profile and Logout Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
+        <div className="p-4 border-t border-app-border bg-app-surface transition-colors">
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center">
-              <UserCircleIcon className="w-8 h-8 text-gray-400 mr-2" />
+            <div className="flex items-center space-x-2">
+              <UserCircle className="w-8 h-8 text-app-muted" />
               <div>
-                <p className="text-sm font-medium text-gray-800 truncate">
+                <p className="text-sm font-medium text-app-text truncate max-w-[140px]">
                   {user?.name || "Admin User"}
                 </p>
-                <p className="text-xs text-gray-500 capitalize">
+                <p className="text-xs text-app-muted capitalize">
                   {user?.role || "admin"}
                 </p>
               </div>
@@ -174,16 +181,16 @@ const AdminPortal = () => {
           </div>
           <button
             onClick={logout}
-            className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
+            className="w-full flex items-center px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-md transition-colors"
           >
-            <ArrowRightOnRectangleIcon className="w-4 h-4 mr-2" />
+            <LogOut className="w-4 h-4 mr-2" />
             Logout
           </button>
         </div>
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8 overflow-y-auto">
+      <main className="flex-1 p-8 overflow-y-auto bg-app-base transition-colors">
         <Outlet />
       </main>
     </div>

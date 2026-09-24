@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { Mail, Loader2, AlertTriangle, ArrowLeft, CheckCircle } from "lucide-react";
+import { Mail, Loader2, ArrowLeft, CheckCircle } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import AppLogo from "../../components/Branding/AppLogo";
+import ThemeToggle from "../../components/Common/ThemeToggle";
 
 const ForgotPassword = () => {
   const {
@@ -21,7 +23,6 @@ const ForgotPassword = () => {
       setIsSubmitted(true);
       toast.success("Password reset instructions sent to your email");
     } catch (error) {
-      console.error("Forgot password error:", error);
       toast.error(error.response?.data?.message || "Failed to process request");
     } finally {
       setIsLoading(false);
@@ -29,34 +30,49 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center">
-            <AlertTriangle className="w-8 h-8 text-white" />
-          </div>
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          Reset Your Password
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Enter your email address and we'll send you a link to reset your
-          password.
-        </p>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-slate-950 transition-colors">
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle />
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" />
+      <div
+        className="absolute inset-0 -z-0 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%)",
+        }}
+      />
+      <div
+        className="absolute -z-0 pointer-events-none inset-0 mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "linear-gradient(115deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 100%)",
+        }}
+      />
+
+      <div className="w-full max-w-md mx-auto px-6 py-10">
+        <div className="bg-white/90 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-xl border border-white/40 dark:border-slate-800 p-8">
+          <div className="flex flex-col items-center mb-6">
+            <AppLogo size={52} />
+            <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+              Reset Your Password
+            </h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 text-center">
+              Enter your email address and we'll send you instructions to reset your password.
+            </p>
+          </div>
+
           {!isSubmitted ? (
-            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                 >
-                  Email address
+                  Email Address
                 </label>
-                <div className="mt-1 relative">
+                <div className="relative">
                   <input
                     {...register("email", {
                       required: "Email is required",
@@ -67,71 +83,62 @@ const ForgotPassword = () => {
                     })}
                     type="email"
                     id="email"
-                    className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                    placeholder="Enter your email"
+                    className={`w-full pl-10 pr-3.5 py-2.5 bg-white/80 dark:bg-slate-900/90 border ${
+                      errors.email
+                        ? "border-red-500 focus:ring-red-500"
+                        : "border-slate-300 dark:border-slate-700 focus:border-primary-500 dark:focus:border-sky-400 focus:ring-primary-500"
+                    } rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 backdrop-blur-xs transition-colors focus:outline-none focus:ring-2`}
+                    placeholder="you@example.com"
                   />
-                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
                 </div>
                 {errors.email && (
-                  <p className="mt-2 text-sm text-red-600">
+                  <p className="mt-1 text-xs text-red-600 dark:text-red-400 font-medium">
                     {errors.email.message}
                   </p>
                 )}
               </div>
 
-              <div>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="animate-spin h-4 w-4 mr-2" />
-                      Sending Reset Link...
-                    </>
-                  ) : (
-                    "Send Reset Link"
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full flex items-center justify-center py-2.5 px-4 rounded-xl shadow-sm text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                    Sending Instructions...
+                  </>
+                ) : (
+                  "Send Reset Link"
+                )}
+              </button>
             </form>
           ) : (
-            <div className="text-center">
-              <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
-              <h3 className="mt-2 text-lg font-medium text-gray-900">
-                Check your email
+            <div className="text-center py-4">
+              <div className="mx-auto w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-3">
+                <CheckCircle className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                Instructions Dispatched
               </h3>
-              <p className="mt-1 text-sm text-gray-500">
-                We've sent a password reset link to your email address.
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                We've transmitted password reset instructions to your registered email.
               </p>
-              <p className="mt-3 text-sm text-gray-500">
-                If you don't see it, please check your spam folder.
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-500">
+                If not received within a few minutes, check your spam or junk folder.
               </p>
             </div>
           )}
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Remember your password?
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <Link
-                to="/login"
-                className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Login
-              </Link>
-            </div>
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 text-center">
+            <Link
+              to="/login"
+              className="inline-flex items-center text-sm font-medium text-primary-600 dark:text-sky-400 hover:text-primary-700 dark:hover:text-sky-300 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1.5" />
+              Return to Login
+            </Link>
           </div>
         </div>
       </div>

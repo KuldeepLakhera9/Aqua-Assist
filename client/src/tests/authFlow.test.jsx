@@ -18,6 +18,7 @@
  */
 
 import React from "react";
+import { vi, describe, beforeEach, test, expect } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../contexts/AuthContext";
@@ -25,23 +26,28 @@ import Login from "../pages/Auth/Login";
 import axiosInstance from "../services/axiosConfig";
 
 // Mock axios
-jest.mock("../services/axiosConfig", () => ({
-  post: jest.fn(),
-  get: jest.fn(),
+vi.mock("../services/axiosConfig", () => ({
+  default: {
+    post: vi.fn(),
+    get: vi.fn(),
+    defaults: { headers: { common: {} } },
+  },
+  post: vi.fn(),
+  get: vi.fn(),
   defaults: { headers: { common: {} } },
 }));
 
 describe("Authentication Flow", () => {
   beforeEach(() => {
     // Clear mocks between tests
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     // Mock localStorage
     Object.defineProperty(window, "localStorage", {
       value: {
-        getItem: jest.fn(),
-        setItem: jest.fn(),
-        removeItem: jest.fn(),
+        getItem: vi.fn(),
+        setItem: vi.fn(),
+        removeItem: vi.fn(),
       },
       writable: true,
     });
@@ -49,9 +55,9 @@ describe("Authentication Flow", () => {
     // Mock sessionStorage
     Object.defineProperty(window, "sessionStorage", {
       value: {
-        getItem: jest.fn(),
-        setItem: jest.fn(),
-        removeItem: jest.fn(),
+        getItem: vi.fn(),
+        setItem: vi.fn(),
+        removeItem: vi.fn(),
       },
       writable: true,
     });
@@ -90,7 +96,7 @@ describe("Authentication Flow", () => {
 
     // Verify axios call
     await waitFor(() => {
-      expect(axiosInstance.post).toHaveBeenCalledWith("/api/auth/login", {
+      expect(axiosInstance.post).toHaveBeenCalledWith("/auth/login", {
         login: "test@example.com",
         password: "password123",
       });

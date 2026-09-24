@@ -22,23 +22,31 @@ const InputField = ({ label, type, name, register, errors, ...rest }) => {
   };
 
   return (
-    <div className="form-control w-full">
+    <div className="w-full space-y-1.5">
       {label && (
-        <label className="label">
-          <span className="label-text">{label}</span>
+        <label
+          htmlFor={rest.id || name}
+          className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300"
+        >
+          {label}
         </label>
       )}
       <input
+        id={rest.id || name}
         type={type}
-        placeholder={label}
-        className={`input input-bordered w-full ${
-          errors[name] ? "input-error" : ""
-        }`}
+        placeholder={rest.placeholder || label}
+        className={`w-full px-3.5 py-2.5 bg-white/80 dark:bg-slate-900/90 border ${
+          errors[name]
+            ? "border-red-500 focus:ring-red-500"
+            : "border-slate-300 dark:border-slate-700 focus:border-primary-500 dark:focus:border-sky-400 focus:ring-primary-500"
+        } rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 backdrop-blur-xs transition-colors focus:outline-none focus:ring-2`}
         {...register(name, getValidationRules(name))}
         {...rest}
       />
       {errors[name] && (
-        <p className="text-red-500 text-xs mt-1">{errors[name].message}</p>
+        <p className="text-red-600 dark:text-red-400 text-xs font-medium mt-1">
+          {errors[name].message}
+        </p>
       )}
     </div>
   );

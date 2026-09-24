@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import CustomButton from "../../components/Common/CustomButton";
 import InputField from "../../components/Common/InputField";
 import AppLogo from "../../components/Branding/AppLogo";
+import ThemeToggle from "../../components/Common/ThemeToggle";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -55,7 +56,11 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-slate-950">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-slate-950 transition-colors">
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle />
+      </div>
+
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" />
       <div
         className="absolute inset-0 -z-0 opacity-30"
@@ -75,7 +80,7 @@ const Login = () => {
         <div className="bg-white/90 dark:bg-slate-900/80 backdrop-blur-md rounded-2xl shadow-xl border border-white/40 dark:border-slate-800 p-8 mt-10">
           <div className="flex flex-col items-center mb-6">
             <AppLogo size={52} />
-            <h1 className="mt-4 text-2xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-slate-100 dark:to-slate-400">
+            <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
               Welcome back
             </h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -104,12 +109,12 @@ const Login = () => {
             <div className="flex items-center justify-between text-sm">
               <Link
                 to="/forgot-password"
-                className="font-medium text-sky-600 hover:text-sky-500"
+                className="font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
               >
                 Forgot password?
               </Link>
             </div>
-            <CustomButton type="submit" fullWidth>
+            <CustomButton type="submit" className="w-full">
               Sign In
             </CustomButton>
           </form>
