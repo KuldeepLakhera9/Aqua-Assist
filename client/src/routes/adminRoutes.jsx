@@ -1,7 +1,6 @@
 import AdminRoute from "../components/Auth/AdminRoute";
 import AdminPortal from "../pages/admin/AdminPortal";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
-import SimpleAdminDashboard from "../components/Test/SimpleAdminDashboard";
 import MunicipalityDashboard from "../components/Admin/MunicipalityDashboard";
 import RescuerDashboard from "../pages/AdminDashboard/RescuerDashboard";
 import FinancialAidRequests from "../pages/admin/FinancialAidRequests";

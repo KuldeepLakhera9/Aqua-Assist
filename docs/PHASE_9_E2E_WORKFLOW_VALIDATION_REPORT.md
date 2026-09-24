@@ -24,7 +24,7 @@ All critical disaster management workflows—spanning citizen registration, inci
 ```
 ╔══════════════════════════════════════════════════════════════════╗
 ║      AQUA-ASSIST NATIONAL DISASTER MANAGEMENT SYSTEM (NDMS)      ║
-║       Phase 9: End-to-End System & Live Workflow Verification     ║
+║       Phase 9: End-to-End System & Live Workflow Validation      ║
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
