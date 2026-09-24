@@ -29,6 +29,7 @@ export interface DynamicFloodMapProps {
     color: string;
     label: string;
   }>;
+  routePolyline?: Array<[number, number]>;
   height?: string;
   onMarkerClick?: (marker: MapMarkerItem) => void;
   showLayersControl?: boolean;

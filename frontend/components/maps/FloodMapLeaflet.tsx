@@ -17,6 +17,7 @@ interface FloodMapProps {
   initialZoom?: number;
   markers?: MapMarkerItem[];
   hazardZones?: HazardZoneItem[];
+  routePolyline?: Array<[number, number]>;
   height?: string;
   onMarkerClick?: (marker: MapMarkerItem) => void;
   showLayersControl?: boolean;
@@ -27,6 +28,7 @@ export default function FloodMapLeaflet({
   initialZoom = 12,
   markers = DEFAULT_MAP_MARKERS,
   hazardZones = DEFAULT_HAZARD_ZONES,
+  routePolyline,
   height = "600px",
   onMarkerClick,
   showLayersControl = true,
@@ -238,6 +240,21 @@ export default function FloodMapLeaflet({
         else marker.addTo(incidentLayer);
       });
 
+      // Render Evacuation Route Polyline if provided
+      if (routePolyline && routePolyline.length > 1) {
+        const polyline = L.polyline(routePolyline, {
+          color: "#059669",
+          weight: 5,
+          opacity: 0.95,
+          dashArray: "10, 8",
+        }).addTo(map);
+        try {
+          map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
+        } catch (e) {
+          // ignore if bounds cannot be computed
+        }
+      }
+
       // Layer controls
       if (showLayersControl) {
         const overlays = {
@@ -259,7 +276,7 @@ export default function FloodMapLeaflet({
         mapInstanceRef.current = null;
       }
     };
-  }, [initialCenter, initialZoom, markers, hazardZones, onMarkerClick, showLayersControl]);
+  }, [initialCenter, initialZoom, markers, hazardZones, routePolyline, onMarkerClick, showLayersControl]);
 
   return (
     <div className="relative w-full rounded border border-slate-200 overflow-hidden shadow-2xs">

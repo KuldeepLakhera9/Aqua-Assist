@@ -10,6 +10,7 @@ const PUBLIC_PATHS = [
   "/about",
   "/emergency",
   "/emergency-services",
+  "/weather",
   "/login",
   "/register",
   "/forgot-password",

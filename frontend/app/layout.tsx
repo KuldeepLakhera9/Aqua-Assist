@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { SocketProvider } from "@/contexts/SocketContext";
+import { GovAlertBanner } from "@/components/layout/GovAlertBanner";
 import "./globals.css";
 
 const inter = Inter({
@@ -52,9 +54,12 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* Global Auth Context Provider */}
+        {/* Global Context Providers & Real-Time Alerts */}
         <AuthProvider>
-          <div className="flex-1 flex flex-col">{children}</div>
+          <SocketProvider>
+            <GovAlertBanner />
+            <div className="flex-1 flex flex-col">{children}</div>
+          </SocketProvider>
         </AuthProvider>
       </body>
     </html>

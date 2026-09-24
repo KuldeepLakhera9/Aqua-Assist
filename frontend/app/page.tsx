@@ -40,17 +40,29 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-          <Link href="/styleguide">
-            <Button variant="default" size="lg" className="w-full sm:w-auto">
-              <Layers className="h-4 w-4 mr-2" />
-              Review Phase 1 Style Guide
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          <Link href="/login">
+            <Button variant="default" size="lg" className="font-semibold">
+              <ShieldAlert className="h-4 w-4 mr-2" />
+              Enter Portal Command
+            </Button>
+          </Link>
+          <Link href="/map">
+            <Button variant="outline" size="lg" className="border-slate-300 font-semibold">
+              <Compass className="h-4 w-4 mr-2 text-blue-600" />
+              GIS Flood Map
+            </Button>
+          </Link>
+          <Link href="/weather">
+            <Button variant="outline" size="lg" className="border-slate-300 font-semibold">
+              <Activity className="h-4 w-4 mr-2 text-teal-600" />
+              Doppler Radar & Weather
             </Button>
           </Link>
           <a href="tel:1078">
-            <Button variant="emergency" size="lg" className="w-full sm:w-auto">
+            <Button variant="emergency" size="lg">
               <PhoneCall className="h-4 w-4 mr-2" />
-              National Hotline (1078)
+              1078
             </Button>
           </a>
         </div>
@@ -169,65 +181,73 @@ export default function HomePage() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="border-slate-200 hover:border-slate-400 transition-colors">
-            <CardHeader className="p-4 pb-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Citizen Portal
-              </div>
-              <CardTitle className="text-sm">Public Safety & Reporting</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
-              <p>
-                Flood reporting with geolocation + dropzone, geofenced alerts, water issues list, and multi-language support.
-              </p>
-              <div className="font-mono text-[11px] text-slate-400">Routes: /report-flood, /alerts</div>
-            </CardContent>
-          </Card>
+          <Link href="/citizen-dashboard" className="block">
+            <Card className="h-full border-slate-200 hover:border-slate-500 hover:shadow-xs transition-all cursor-pointer">
+              <CardHeader className="p-4 pb-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  Citizen Portal
+                </div>
+                <CardTitle className="text-sm">Public Safety & Reporting</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
+                <p>
+                  Flood reporting with geolocation + dropzone, geofenced alerts, water issues list, and evacuation routing.
+                </p>
+                <div className="font-mono text-[11px] text-blue-700 font-semibold">Enter Citizen Portal &rarr;</div>
+              </CardContent>
+            </Card>
+          </Link>
 
-          <Card className="border-slate-200 hover:border-slate-400 transition-colors">
-            <CardHeader className="p-4 pb-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Municipality Portal
-              </div>
-              <CardTitle className="text-sm">Multi-City Administration</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
-              <p>
-                Field report triage, municipal water pump/boat tracking, localized rainfall analytics, and civic repair responses.
-              </p>
-              <div className="font-mono text-[11px] text-slate-400">Routes: /municipality/*</div>
-            </CardContent>
-          </Card>
+          <Link href="/municipality/dashboard" className="block">
+            <Card className="h-full border-slate-200 hover:border-slate-500 hover:shadow-xs transition-all cursor-pointer">
+              <CardHeader className="p-4 pb-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  Municipality Portal
+                </div>
+                <CardTitle className="text-sm">Multi-City Administration</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
+                <p>
+                  Field report triage, municipal water pump/boat tracking, localized rainfall analytics, and civic repair responses.
+                </p>
+                <div className="font-mono text-[11px] text-blue-700 font-semibold">Enter Municipal Command &rarr;</div>
+              </CardContent>
+            </Card>
+          </Link>
 
-          <Card className="border-slate-200 hover:border-slate-400 transition-colors">
-            <CardHeader className="p-4 pb-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Rescuer Command
-              </div>
-              <CardTitle className="text-sm">First Responder Dispatch</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
-              <p>
-                High-contrast mobile interface: active SOS emergency queue, rescue team readiness, field inventory, live telemetry.
-              </p>
-              <div className="font-mono text-[11px] text-slate-400">Routes: /rescuer/*</div>
-            </CardContent>
-          </Card>
+          <Link href="/rescuer/dashboard" className="block">
+            <Card className="h-full border-slate-200 hover:border-slate-500 hover:shadow-xs transition-all cursor-pointer">
+              <CardHeader className="p-4 pb-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  Rescuer Command
+                </div>
+                <CardTitle className="text-sm">First Responder Dispatch</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
+                <p>
+                  High-contrast mobile interface: active SOS emergency queue, rescue team readiness, field inventory, live telemetry.
+                </p>
+                <div className="font-mono text-[11px] text-blue-700 font-semibold">Enter Rescuer Command &rarr;</div>
+              </CardContent>
+            </Card>
+          </Link>
 
-          <Card className="border-slate-200 hover:border-slate-400 transition-colors">
-            <CardHeader className="p-4 pb-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                National Command
-              </div>
-              <CardTitle className="text-sm">Executive Situation Room</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
-              <p>
-                AI verification dashboard, national resource stockpile tracking, financial relief audit, and predictive risk models.
-              </p>
-              <div className="font-mono text-[11px] text-slate-400">Routes: /admin/*</div>
-            </CardContent>
-          </Card>
+          <Link href="/admin/dashboard" className="block">
+            <Card className="h-full border-slate-200 hover:border-slate-500 hover:shadow-xs transition-all cursor-pointer">
+              <CardHeader className="p-4 pb-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  National Command
+                </div>
+                <CardTitle className="text-sm">Executive Situation Room</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-1 text-xs text-slate-600 space-y-2">
+                <p>
+                  AI verification dashboard, national resource stockpile tracking, financial relief audit, and predictive risk models.
+                </p>
+                <div className="font-mono text-[11px] text-blue-700 font-semibold">Enter National Command &rarr;</div>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </div>
     </div>

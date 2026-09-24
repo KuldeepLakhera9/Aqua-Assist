@@ -13,6 +13,7 @@ import {
   User,
   AlertOctagon,
   Map,
+  Navigation,
 } from "lucide-react";
 import { GovHeader } from "@/components/layout/GovHeader";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ import { Button } from "@/components/ui/button";
 const CITIZEN_NAV = [
   { name: "My Dashboard", href: "/citizen-dashboard", icon: Home },
   { name: "Flood Map", href: "/map", icon: Map },
+  { name: "Evacuation Route", href: "/evacuation", icon: Navigation },
   { name: "Report Flood", href: "/report-flood", icon: FileText },
   { name: "View Reports", href: "/reports", icon: AlertTriangle },
   { name: "Water Issues", href: "/water-issues", icon: Droplet },
