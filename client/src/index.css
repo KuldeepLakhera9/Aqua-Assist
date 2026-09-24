@@ -1,0 +1,271 @@
+/* Profile page font visibility fix */
+.profile-text-on-white {
+  color: #1e293b !important; /* slate-800 for strong contrast */
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Semantic design tokens (light + dark) */
+:root {
+  --app-base: 255 255 255; /* white */
+  --app-surface: 248 250 252; /* slate-50 */
+  --app-border: 226 232 240; /* slate-200 */
+  --app-text: 15 23 42; /* slate-900 */
+  --app-muted: 100 116 139; /* slate-500 */
+  --app-accent: 37 99 235; /* primary-600 */
+  --app-accent-foreground: 255 255 255; /* white */
+}
+
+.dark {
+  --app-base: 15 23 42; /* slate-900 */
+  --app-surface: 30 41 59; /* slate-800 */
+  --app-border: 51 65 85; /* slate-600 */
+  --app-text: 226 232 240; /* slate-200 */
+  --app-muted: 148 163 184; /* slate-400 */
+  --app-accent: 56 189 248; /* sky-400 */
+  --app-accent-foreground: 15 23 42; /* slate-900 */
+}
+
+@layer base {
+  body {
+    @apply bg-app-base text-app-text transition-colors;
+  }
+}
+
+/* Offline styles */
+.offline {
+  filter: grayscale(50%);
+}
+
+.offline .offline-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* PWA install prompt styles */
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #1e40af;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+@media (min-width: 768px) {
+  .install-prompt {
+    left: auto;
+    right: 20px;
+    max-width: 400px;
+  }
+}
+
+/* Custom CSS for Leaflet markers */
+.leaflet-marker-icon.hospital-icon {
+  background-color: #ff0000; /* Red */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.fire_station-icon {
+  background-color: #ffa500; /* Orange */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.police-icon {
+  background-color: #0000ff; /* Blue */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.ambulance_station-icon {
+  background-color: #800080; /* Purple */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.shelter-icon {
+  background-color: #008000; /* Green */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.community_centre-icon {
+  background-color: #00ffff; /* Cyan */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.pharmacy-icon {
+  background-color: #ffc0cb; /* Pink */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.social_facility-icon {
+  background-color: #a52a2a; /* Brown */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.bus_station-icon,
+.leaflet-marker-icon.railway_station-icon {
+  background-color: #808080; /* Gray */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.toilets-icon {
+  background-color: #ffd700; /* Gold */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.drinking_water-icon {
+  background-color: #add8e6; /* Light Blue */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.fuel-icon,
+.leaflet-marker-icon.charging_station-icon {
+  background-color: #000000; /* Black */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.assembly_point-icon {
+  background-color: #ff4500; /* Orange Red */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.leaflet-marker-icon.school-icon,
+.leaflet-marker-icon.college-icon {
+  background-color: #32cd32; /* Lime Green */
+  border-radius: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+.legend {
+  background: rgb(var(--app-surface));
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}

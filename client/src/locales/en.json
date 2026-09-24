@@ -1,0 +1,125 @@
+{
+  "app": {
+    "name": "Flood Disaster Management",
+    "tagline": "Helping communities prepare, respond, and recover"
+  },
+  "hero": {
+    "title": "Faster Flood Intelligence.",
+    "titleHighlight": "Stronger Response.",
+    "subtitle": "Real-time community reporting, validation and decision support so emergency teams act sooner and citizens stay safer.",
+    "getStarted": "Get Started",
+    "signIn": "Sign In"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "reports": "Reports",
+    "alerts": "Alerts",
+    "map": "Map",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "emergency": "Emergency Services"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "submit": "Submit",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "view": "View",
+    "details": "Details",
+    "moreInfo": "More information",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "geolocation": {
+    "unknownLocation": "Unknown location",
+    "currentLocation": "Current Location",
+    "locationFormat": "Lat: {{latitude}}, Long: {{longitude}}",
+    "accessDenied": "Location access was denied",
+    "locationUnavailable": "Location information is unavailable",
+    "timeoutError": "The request to get user location timed out",
+    "unsupportedError": "Your browser doesn't support geolocation",
+    "accuracy": "Accuracy: {{meters}} meters",
+    "updatedAt": "Updated: {{time}}",
+    "directions": {
+      "north": "north",
+      "northeast": "northeast",
+      "east": "east",
+      "southeast": "southeast",
+      "south": "south",
+      "southwest": "southwest",
+      "west": "west",
+      "northwest": "northwest",
+      "headingDirection": "Head {{direction}} for approximately {{distance}}km to reach {{destination}}."
+    },
+    "evacuationRoutes": {
+      "title": "Evacuation Routes",
+      "findSafeRoutes": "Find Safe Routes",
+      "safeRouteFound": "Safe route found",
+      "noRoutesFound": "No safe routes found",
+      "walkingTime": "{{minutes}} min walk",
+      "distance": "{{distance}} km",
+      "safeShelter": "Safe Shelter",
+      "highGround": "High Ground Zone",
+      "emergencyCenter": "Emergency Center",
+      "evacuationCenter": "Community Evacuation Center",
+      "reliefCenter": "Emergency Relief Center"
+    },
+    "errors": {
+      "invalidLocation": "Invalid location",
+      "geocodingServiceUnavailable": "Geocoding service unavailable"
+    },
+    "riskLevels": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "unknown": "Unknown"
+    },
+    "risk": {
+      "floodRisk": "Flood Risk",
+      "highRisk": "High Risk",
+      "mediumRisk": "Medium Risk",
+      "lowRisk": "Low Risk",
+      "unknownRisk": "Unknown Risk",
+      "elevationRisk": "Elevation Risk"
+    }
+  },
+  "emergency": {
+    "emergencyServices": "Emergency Services",
+    "emergencyContacts": "Emergency Contacts",
+    "nearbyResources": "Nearby Emergency Resources",
+    "reportEmergency": "Report Emergency",
+    "callNow": "Call Now",
+    "call": "Call",
+    "emergencyCall": "Emergency Call",
+    "confirmEmergencyCall": "Are you sure you want to call",
+    "onlyUseForEmergencies": "Please only use emergency services for genuine emergencies.",
+    "reportEmergencyPrompt": "Please provide details about the emergency situation.",
+    "locationRequired": "Location access is required to report an emergency.",
+    "hospitals": "Hospitals",
+    "shelters": "Emergency Shelters",
+    "policeStations": "Police Stations",
+    "fireStations": "Fire Stations",
+    "bedsAvailable": "Beds Available",
+    "availableSpace": "Available Space",
+    "noResourcesFound": "No emergency resources found in your area.",
+    "errorFetchingContacts": "Failed to fetch emergency contacts.",
+    "errorFetchingResources": "Failed to fetch emergency resources."
+  }
+}
