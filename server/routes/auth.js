@@ -120,6 +120,12 @@ router.post(
 // ---------- USER LOGIN ----------
 router.post(
   "/login",
+  (req, res, next) => {
+    if (!req.body.login && req.body.email) {
+      req.body.login = req.body.email;
+    }
+    next();
+  },
   [
     body("login").notEmpty().withMessage("Email or phone is required"),
     body("password").notEmpty().withMessage("Password is required"),

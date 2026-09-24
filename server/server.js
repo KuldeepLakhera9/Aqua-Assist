@@ -51,14 +51,33 @@ const server = createServer(app);
 // ---------- ALLOWED ORIGINS ----------
 const allowedOrigins = [
   "http://localhost:5173", // Vite dev
-  "http://localhost:3000", // CRA (if you still use it)
+  "http://localhost:5174", // Vite dev alternative port
+  "http://localhost:5175",
+  "http://localhost:3000", // Next.js
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:5174",
+  "http://127.0.0.1:3000",
   process.env.CLIENT_URL, // Production (from .env)
 ].filter(Boolean);
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+  if (origin.startsWith("http://localhost:") || origin.startsWith("http://127.0.0.1:")) {
+    return true;
+  }
+  return allowedOrigins.includes(origin);
+};
 
 // ---------- SOCKET.IO SETUP ----------
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -85,7 +104,13 @@ app.use(compression());
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
     exposedHeaders: ["X-Correlation-ID"],
